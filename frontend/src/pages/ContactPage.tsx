@@ -2,10 +2,9 @@ import { useState, type FormEvent } from 'react'
 import { profile } from '../data/portfolioData'
 
 export function ContactPage() {
-  const apiBaseUrl = (import.meta.env.VITE_API_BASE_URL || 'http://localhost:4000').replace(
-    /\/$/,
-    '',
-  )
+  const apiBaseUrl = (
+    import.meta.env.VITE_API_BASE_URL || 'https://portfolio-backend-33ii.onrender.com'
+  ).replace(/\/$/, '')
   const [formData, setFormData] = useState({
     name: '',
     email: '',
