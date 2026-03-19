@@ -34,9 +34,12 @@ export function ContactPage() {
         }),
       })
 
+      const data = await response.json().catch(() => null)
+
       if (!response.ok) {
-        const data = await response.json().catch(() => null)
-        throw new Error(data?.error || 'API unavailable')
+        setStatus('error')
+        setStatusMessage(data?.error || 'Unable to send message right now. Please try again.')
+        return
       }
 
       setStatus('success')

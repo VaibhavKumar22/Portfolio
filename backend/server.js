@@ -7,10 +7,27 @@ dotenv.config()
 
 const app = express()
 const port = Number(process.env.PORT || 4000)
+const allowedOrigins = (process.env.CORS_ORIGIN || '')
+  .split(',')
+  .map((origin) => origin.trim())
+  .filter(Boolean)
+const smtpUser = process.env.SMTP_USER?.trim() || ''
+const smtpPass = process.env.SMTP_PASS?.replace(/\s+/g, '') || ''
+const contactToEmail = process.env.CONTACT_TO_EMAIL?.trim() || ''
 
 app.use(
   cors({
-    origin: process.env.CORS_ORIGIN || '*',
+    origin: (origin, callback) => {
+      if (!origin) {
+        return callback(null, true)
+      }
+
+      if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
+        return callback(null, true)
+      }
+
+      return callback(new Error('Not allowed by CORS'))
+    },
   }),
 )
 app.use(express.json())
@@ -26,7 +43,7 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required.' })
   }
 
-  if (!process.env.SMTP_USER || !process.env.SMTP_PASS || !process.env.CONTACT_TO_EMAIL) {
+  if (!smtpUser || !smtpPass || !contactToEmail) {
     return res.status(500).json({
       error: 'Server email is not configured.',
     })
@@ -36,14 +53,14 @@ app.post('/api/contact', async (req, res) => {
     const transporter = nodemailer.createTransport({
       service: 'gmail',
       auth: {
-        user: process.env.SMTP_USER,
-        pass: process.env.SMTP_PASS,
+        user: smtpUser,
+        pass: smtpPass,
       },
     })
 
     await transporter.sendMail({
-      from: `"Portfolio Contact" <${process.env.SMTP_USER}>`,
-      to: process.env.CONTACT_TO_EMAIL,
+      from: `"Portfolio Contact" <${smtpUser}>`,
+      to: contactToEmail,
       replyTo: email,
       subject: `Portfolio Contact: ${subject}`,
       text: [
