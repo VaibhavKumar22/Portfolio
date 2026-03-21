@@ -61,6 +61,16 @@ Follow prompts; link to the existing project if you already created it on the da
 
 ---
 
+## Vercel: “Root Directory `frontend` does not exist”
+
+This repo’s site lives at the **repository root** (`index.html`), not in a `frontend/` folder.
+
+1. Vercel → your project → **Settings** → **General** → **Root Directory**.
+2. **Clear** the field (empty = repo root). Remove `frontend`.
+3. **Save**, then **Deployments** → **Redeploy**.
+
+---
+
 ## Notes
 
 - **Contact form** uses [FormSubmit](https://formsubmit.co) — works on static hosting; no server needed.
