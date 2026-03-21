@@ -64,6 +64,75 @@ function isOriginAllowed(origin) {
 const smtpUser = process.env.SMTP_USER?.trim() || ''
 const smtpPass = process.env.SMTP_PASS?.replace(/\s+/g, '') || ''
 const contactToEmail = process.env.CONTACT_TO_EMAIL?.trim() || ''
+const resendApiKey = process.env.RESEND_API_KEY?.trim() || ''
+
+function buildMailPayload(name, email, subject, message) {
+  const text = [
+    `Name: ${name}`,
+    `Email: ${email}`,
+    `Subject: ${subject}`,
+    '',
+    'Message:',
+    message,
+  ].join('\n')
+  const html = `
+        <h2>New Portfolio Contact</h2>
+        <p><strong>Name:</strong> ${name}</p>
+        <p><strong>Email:</strong> ${email}</p>
+        <p><strong>Subject:</strong> ${subject}</p>
+        <p><strong>Message:</strong></p>
+        <p>${String(message).replace(/\n/g, '<br/>')}</p>
+      `
+  return { text, html }
+}
+
+/** HTTPS-only (port 443) — works when outbound SMTP to Gmail times out on Render. */
+async function sendViaResend(name, email, subject, message) {
+  const { text, html } = buildMailPayload(name, email, subject, message)
+  const from = process.env.RESEND_FROM_EMAIL?.trim() || 'onboarding@resend.dev'
+
+  const response = await fetch('https://api.resend.com/emails', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${resendApiKey}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      from: `Portfolio Contact <${from}>`,
+      to: [contactToEmail],
+      reply_to: email,
+      subject: `Portfolio Contact: ${subject}`,
+      text,
+      html,
+    }),
+  })
+
+  if (!response.ok) {
+    const errBody = await response.text()
+    throw new Error(`Resend API error: ${response.status} ${errBody}`)
+  }
+}
+
+/**
+ * Gmail SMTP — explicit host + port 465 + IPv4.
+ * Render (and other clouds) often time out with `service: 'gmail'` due to IPv6 / routing.
+ */
+function createGmailTransport() {
+  return nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: {
+      user: smtpUser,
+      pass: smtpPass,
+    },
+    connectionTimeout: 60_000,
+    greetingTimeout: 30_000,
+    socketTimeout: 60_000,
+    // Prefer IPv4 — fixes many ETIMEDOUT errors to smtp.gmail.com from cloud hosts
+    family: 4,
+  })
+}
 
 app.use(
   cors({
@@ -89,43 +158,28 @@ app.post('/api/contact', async (req, res) => {
     return res.status(400).json({ error: 'All fields are required.' })
   }
 
-  if (!smtpUser || !smtpPass || !contactToEmail) {
+  const hasSmtp = smtpUser && smtpPass
+  if (!contactToEmail || (!resendApiKey && !hasSmtp)) {
     return res.status(500).json({
       error: 'Server email is not configured.',
     })
   }
 
   try {
-    const transporter = nodemailer.createTransport({
-      service: 'gmail',
-      auth: {
-        user: smtpUser,
-        pass: smtpPass,
-      },
-    })
-
-    await transporter.sendMail({
-      from: `"Portfolio Contact" <${smtpUser}>`,
-      to: contactToEmail,
-      replyTo: email,
-      subject: `Portfolio Contact: ${subject}`,
-      text: [
-        `Name: ${name}`,
-        `Email: ${email}`,
-        `Subject: ${subject}`,
-        '',
-        'Message:',
-        message,
-      ].join('\n'),
-      html: `
-        <h2>New Portfolio Contact</h2>
-        <p><strong>Name:</strong> ${name}</p>
-        <p><strong>Email:</strong> ${email}</p>
-        <p><strong>Subject:</strong> ${subject}</p>
-        <p><strong>Message:</strong></p>
-        <p>${String(message).replace(/\n/g, '<br/>')}</p>
-      `,
-    })
+    if (resendApiKey) {
+      await sendViaResend(name, email, subject, message)
+    } else {
+      const { text, html } = buildMailPayload(name, email, subject, message)
+      const transporter = createGmailTransport()
+      await transporter.sendMail({
+        from: `"Portfolio Contact" <${smtpUser}>`,
+        to: contactToEmail,
+        replyTo: email,
+        subject: `Portfolio Contact: ${subject}`,
+        text,
+        html,
+      })
+    }
 
     return res.json({ success: true })
   } catch (error) {
