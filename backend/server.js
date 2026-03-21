@@ -1,3 +1,4 @@
+import sgMail from '@sendgrid/mail'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
@@ -64,7 +65,12 @@ function isOriginAllowed(origin) {
 const smtpUser = process.env.SMTP_USER?.trim() || ''
 const smtpPass = process.env.SMTP_PASS?.replace(/\s+/g, '') || ''
 const contactToEmail = process.env.CONTACT_TO_EMAIL?.trim() || ''
+const sendgridApiKey = process.env.SENDGRID_API_KEY?.trim() || ''
 const resendApiKey = process.env.RESEND_API_KEY?.trim() || ''
+
+if (sendgridApiKey) {
+  sgMail.setApiKey(sendgridApiKey)
+}
 
 function buildMailPayload(name, email, subject, message) {
   const text = [
@@ -86,7 +92,30 @@ function buildMailPayload(name, email, subject, message) {
   return { text, html }
 }
 
-/** HTTPS-only (port 443) — works when outbound SMTP to Gmail times out on Render. */
+/**
+ * SendGrid (same approach as hardware-sanitary-app) — HTTPS API, reliable on Render.
+ * @see https://github.com/Ankitjain0408/hardware-sanitary-app/blob/main/backend/utils/emailService.js
+ */
+async function sendViaSendGrid(name, email, subject, message) {
+  const { text, html } = buildMailPayload(name, email, subject, message)
+  const fromEmail =
+    process.env.SENDGRID_FROM_EMAIL?.trim() || contactToEmail || smtpUser
+
+  if (!fromEmail) {
+    throw new Error('Set SENDGRID_FROM_EMAIL (verified sender in SendGrid) or CONTACT_TO_EMAIL.')
+  }
+
+  await sgMail.send({
+    to: contactToEmail,
+    from: fromEmail,
+    replyTo: email,
+    subject: `Portfolio Contact: ${subject}`,
+    text,
+    html,
+  })
+}
+
+/** HTTPS-only (port 443) — optional fallback when SendGrid is not used. */
 async function sendViaResend(name, email, subject, message) {
   const { text, html } = buildMailPayload(name, email, subject, message)
   const from = process.env.RESEND_FROM_EMAIL?.trim() || 'onboarding@resend.dev'
@@ -159,14 +188,17 @@ app.post('/api/contact', async (req, res) => {
   }
 
   const hasSmtp = smtpUser && smtpPass
-  if (!contactToEmail || (!resendApiKey && !hasSmtp)) {
+  const hasMailProvider = sendgridApiKey || resendApiKey || hasSmtp
+  if (!contactToEmail || !hasMailProvider) {
     return res.status(500).json({
       error: 'Server email is not configured.',
     })
   }
 
   try {
-    if (resendApiKey) {
+    if (sendgridApiKey) {
+      await sendViaSendGrid(name, email, subject, message)
+    } else if (resendApiKey) {
       await sendViaResend(name, email, subject, message)
     } else {
       const { text, html } = buildMailPayload(name, email, subject, message)
@@ -190,4 +222,11 @@ app.post('/api/contact', async (req, res) => {
 
 app.listen(port, () => {
   console.log(`Backend running on http://localhost:${port}`)
+  if (sendgridApiKey) {
+    console.log('📧 Email provider: SendGrid (same stack as hardware-sanitary-app)')
+  } else if (resendApiKey) {
+    console.log('📧 Email provider: Resend')
+  } else if (smtpUser && smtpPass) {
+    console.log('📧 Email provider: Gmail SMTP')
+  }
 })
