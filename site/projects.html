@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects — Vaibhav Kumar</title>
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body>
+    <script>
+      window.__PAGE__ = 'projects'
+    </script>
+    <div id="root" class="app-shell">
+      <main class="page">
+        <section class="stack">
+          <h1>Featured Projects</h1>
+          <p class="lead">
+            A showcase of work spanning web applications, APIs, and responsive interfaces.
+          </p>
+        </section>
+
+        <section id="projects-grid" class="projects-grid"></section>
+
+        <section class="card stack">
+          <h3>Interested in working together?</h3>
+          <p>I am always open to discussing ideas and collaboration opportunities.</p>
+          <div>
+            <a href="contact.html" class="btn btn-primary">Let's Connect</a>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="js/data.js"></script>
+    <script src="js/layout.js"></script>
+    <script src="js/project-cards.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function () {
+        if (typeof renderProjectCardsInto === 'function') renderProjectCardsInto('projects-grid')
+      })
+    </script>
+  </body>
+</html>
