@@ -1,5 +1,17 @@
-backend/node_modules/
-backend/.env
-frontend/node_modules/
-frontend/dist/
-*.log
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Editor / IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Vercel (optional local link; safe to ignore)
+.vercel
+
+# Env (if you add any later)
+.env
+.env.*

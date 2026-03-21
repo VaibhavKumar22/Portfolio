@@ -1,18 +1,67 @@
-# Portfolio
+# Vaibhav Kumar — Portfolio
 
-## Deployable static site (HTML / CSS / JS)
+Static single-page portfolio (`index.html` only). No backend required.
 
-The **production-ready** frontend without React lives in **`site/`**.
+## Deploy on Vercel (from GitHub)
 
-- Open `site/index.html` via a local server (see `site/README.md`).
-- Deploy **`site/`** to **Vercel** (Root Directory = `site`) or **GitHub Pages** (publish the `site` folder).
+### 1. Push this folder to GitHub
 
-The **contact form** still uses your **Render** API (`js/contact.js` → `https://portfolio-backend-33ii.onrender.com`). Keep the backend running.
+If this repo is already connected to GitHub:
 
-## Legacy React app
+```bash
+git add -A
+git commit -m "Portfolio: static site for Vercel"
+git push origin master
+```
 
-The **`frontend/`** folder is the older Vite + React version. You can remove it if you only use the static site.
+If you use `main` instead of `master`:
 
-## Backend
+```bash
+git branch -M main
+git push -u origin main
+```
 
-See **`backend/`** — Express contact API (SendGrid / SMTP). Deploy on Render.
+**New repo?** Create one at [github.com/new](https://github.com/new), then:
+
+```bash
+git remote add origin https://github.com/YOUR_USERNAME/YOUR_REPO.git
+git add -A
+git commit -m "Initial portfolio"
+git push -u origin main
+```
+
+### 2. Import on Vercel
+
+1. Go to [vercel.com](https://vercel.com) and sign in (GitHub login is easiest).
+2. **Add New… → Project** → **Import** your GitHub repository.
+3. Settings:
+   - **Framework Preset:** Other (or “No framework”).
+   - **Root Directory:** `./` (leave default).
+   - **Build Command:** leave **empty**.
+   - **Output Directory:** leave **empty** (Vercel serves the repo root).
+4. Click **Deploy**.
+
+Your site will be live at `https://YOUR_PROJECT_NAME.vercel.app`.
+
+### 3. Keep the **same** Vercel link on every deploy
+
+- Do **not** delete the Vercel project if you want to keep the same `*.vercel.app` URL.
+- Every `git push` to the connected branch triggers a **new deployment** on the **same** project → **same production URL**.
+- To use a **custom domain** (e.g. `yourname.com`): Project → **Settings → Domains** → add your domain and follow DNS steps.
+
+### 4. Optional: Vercel CLI
+
+```bash
+npm i -g vercel
+cd path/to/Portfolio
+vercel
+```
+
+Follow prompts; link to the existing project if you already created it on the dashboard.
+
+---
+
+## Notes
+
+- **Contact form** uses [FormSubmit](https://formsubmit.co) — works on static hosting; no server needed.
+- **Resume** links use Google Drive — ensure sharing is “Anyone with the link” if viewers should open without signing in.
