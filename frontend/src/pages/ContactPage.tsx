@@ -50,21 +50,11 @@ export function ContactPage() {
         subject: '',
         message: '',
       })
-    } catch {
-      const fallbackBody = [
-        `Name: ${formData.name}`,
-        `Email: ${formData.email}`,
-        '',
-        formData.message,
-      ].join('\n')
-
-      window.location.href = `mailto:${profile.contact.email}?subject=${encodeURIComponent(
-        formData.subject,
-      )}&body=${encodeURIComponent(fallbackBody)}`
-
+    } catch (err) {
+      console.error('Contact form request failed:', err)
       setStatus('error')
       setStatusMessage(
-        'I opened your email app as a fallback. Please send the drafted message from there.',
+        `Could not reach the mail server from this page (network or browser block). Email me directly at ${profile.contact.email} or try again in a moment.`,
       )
     }
   }
@@ -167,6 +157,12 @@ export function ContactPage() {
           {statusMessage ? (
             <p className={status === 'success' ? 'form-status success' : 'form-status error'}>
               {statusMessage}
+            </p>
+          ) : null}
+          {status === 'error' ? (
+            <p className="form-status hint">
+              Or email me directly:{' '}
+              <a href={`mailto:${profile.contact.email}`}>{profile.contact.email}</a>
             </p>
           ) : null}
         </article>

@@ -582,6 +582,16 @@ p {
   color: #ffd3a6;
 }
 
+.form-status.hint {
+  margin-top: 8px;
+  color: rgba(230, 240, 235, 0.75);
+}
+
+.form-status.hint a {
+  color: #9effc7;
+  text-decoration: underline;
+}
+
 .nav-target-section {
   display: none;
 }
