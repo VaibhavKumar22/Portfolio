@@ -7,10 +7,60 @@ dotenv.config()
 
 const app = express()
 const port = Number(process.env.PORT || 4000)
-const allowedOrigins = (process.env.CORS_ORIGIN || '')
+const corsSegments = (process.env.CORS_ORIGIN ?? '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean)
+
+const allowAllCors =
+  corsSegments.includes('*') ||
+  process.env.CORS_ALLOW_ALL === '1' ||
+  process.env.CORS_ALLOW_ALL === 'true'
+
+const allowedOrigins = corsSegments.filter((o) => o !== '*')
+
+const extraAllowedOrigins = (process.env.CORS_EXTRA_ORIGINS || '')
   .split(',')
   .map((origin) => origin.trim())
   .filter(Boolean)
+
+function normalizeOrigin(origin) {
+  if (!origin) return ''
+  return origin.replace(/\/$/, '')
+}
+
+/** Allow any Vercel deployment URL (preview + production). */
+function isAllowedVercelOrigin(origin) {
+  try {
+    const { hostname, protocol } = new URL(origin)
+    return (
+      (protocol === 'https:' || protocol === 'http:') &&
+      (hostname.endsWith('.vercel.app') || hostname === 'vercel.app')
+    )
+  } catch {
+    return false
+  }
+}
+
+function isOriginAllowed(origin) {
+  if (!origin) return true
+  if (allowAllCors) return true
+
+  const n = normalizeOrigin(origin)
+
+  if (allowedOrigins.length === 0) {
+    return true
+  }
+
+  const normalizedList = allowedOrigins.map(normalizeOrigin)
+  if (normalizedList.includes(n)) return true
+
+  if (extraAllowedOrigins.map(normalizeOrigin).includes(n)) return true
+
+  if (isAllowedVercelOrigin(origin)) return true
+
+  return false
+}
 const smtpUser = process.env.SMTP_USER?.trim() || ''
 const smtpPass = process.env.SMTP_PASS?.replace(/\s+/g, '') || ''
 const contactToEmail = process.env.CONTACT_TO_EMAIL?.trim() || ''
@@ -18,15 +68,11 @@ const contactToEmail = process.env.CONTACT_TO_EMAIL?.trim() || ''
 app.use(
   cors({
     origin: (origin, callback) => {
-      if (!origin) {
+      if (isOriginAllowed(origin)) {
         return callback(null, true)
       }
-
-      if (allowedOrigins.length === 0 || allowedOrigins.includes(origin)) {
-        return callback(null, true)
-      }
-
-      return callback(new Error('Not allowed by CORS'))
+      // Do not pass Error — that throws in Express and spams logs; false = deny CORS quietly.
+      return callback(null, false)
     },
   }),
 )
