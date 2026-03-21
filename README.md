@@ -43,6 +43,12 @@ git push -u origin main
 
 Your site will be live at `https://YOUR_PROJECT_NAME.vercel.app`.
 
+### Free URL / “domain” on Vercel (Hobby plan)
+
+- Vercel gives you **`https://<project-name>.vercel.app`** at no extra cost — no registrar needed.
+- **Project name** = first part of that URL. Pick something unique (e.g. `vaibhav-portfolio`). If the name is taken, try another until Vercel accepts.
+- **Custom domains** (`yourname.com`): buy from a registrar, then **Project → Settings → Domains** in Vercel. Vercel does not sell free `.com` domains.
+
 ### 3. Keep the **same** Vercel link on every deploy
 
 - Do **not** delete the Vercel project if you want to keep the same `*.vercel.app` URL.
