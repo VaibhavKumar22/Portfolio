@@ -5,21 +5,29 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Vaibhav Kumar — Portfolio</title>
   <meta name="description" content="Vaibhav Kumar — Full Stack Developer portfolio" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,400..800;1,400..800&amp;display=swap" rel="stylesheet" />
   <style>
 :root {
-  --bg: #050608;
-  --bg-deep: #020305;
-  --panel: #0a0c10;
-  --panel-soft: #0f1218;
-  --text: #e8f4ee;
-  --muted: #9fb5aa;
-  --border: #1a2520;
-  --accent: #22d36f;
-  --accent-2: #5dff9e;
-  --ok: #78f7af;
+  --bg: #050808;
+  --bg-deep: #030506;
+  --panel: #0a1f1a;
+  --card-bg: #0a1f1a;
+  --panel-soft: #0f1a18;
+  --text: #f3f4f6;
+  --text-description: #cbd5f5;
+  --muted: #9ca3af;
+  --border: rgba(148, 163, 184, 0.12);
+  --primary: #00e68a;
+  --secondary: #00ccff;
+  --accent-purple: #a78bfa;
+  --accent: #00e68a;
+  --accent-2: #00ccff;
+  --ok: #00e68a;
   /* Space for sticky header + shell padding + main offset (one-screen hero) */
   --hero-vh-offset: 7.5rem;
-  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+  font-family: 'Plus Jakarta Sans', Inter, system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
   scroll-behavior: smooth;
 }
 
@@ -42,14 +50,51 @@ body {
   height: 100%;
   overflow: hidden;
   background:
-    radial-gradient(circle at 15% 0%, rgba(34, 211, 111, 0.06) 0%, transparent 42%),
-    radial-gradient(circle at 85% 8%, rgba(93, 255, 158, 0.04) 0%, transparent 36%),
-    linear-gradient(180deg, #030508 0%, var(--bg) 42%, var(--bg-deep) 100%);
+    radial-gradient(circle at 50% 0%, rgba(10, 31, 26, 0.85) 0%, transparent 52%),
+    radial-gradient(circle at 15% 0%, rgba(0, 204, 255, 0.05) 0%, transparent 44%),
+    radial-gradient(circle at 88% 12%, rgba(167, 139, 250, 0.06) 0%, transparent 40%),
+    linear-gradient(180deg, #030508 0%, var(--bg) 48%, var(--bg-deep) 100%);
   color: var(--text);
+}
+
+body::after {
+  content: '';
+  position: fixed;
+  inset: -60px;
+  pointer-events: none;
+  z-index: 0;
+  background:
+    radial-gradient(circle at 22% 12%, rgba(0, 255, 153, 0.07), transparent 46%),
+    radial-gradient(circle at 78% 18%, rgba(0, 204, 255, 0.09), transparent 44%),
+    radial-gradient(circle at 50% 80%, rgba(167, 139, 250, 0.06), transparent 48%);
+  filter: blur(16px);
+  opacity: 0.65;
+  animation: glowDrift 16s ease-in-out infinite;
+}
+
+@keyframes glowDrift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(36px, -18px, 0) scale(1.05);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
 }
 
 a {
   color: inherit;
+}
+
+.page-panel a:not(.btn):not(.brand):not(.nav-link):not(.scroll-cue):not(.contact-action) {
+  color: var(--secondary);
+  text-underline-offset: 3px;
+}
+
+.page-panel a:not(.btn):not(.brand):not(.nav-link):not(.scroll-cue):not(.contact-action):hover {
+  color: var(--accent-purple);
 }
 
 h1,
@@ -67,6 +112,7 @@ p {
   min-height: 0;
   padding: calc(20px * 0.8) clamp(14px, 4vw, 80px);
   position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   overflow: hidden;
@@ -108,7 +154,7 @@ p {
   font-size: clamp(1.3rem, 2.4vw, 2rem);
   line-height: 1;
   white-space: nowrap;
-  background: linear-gradient(90deg, #78f7af, #21d46f);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -136,8 +182,8 @@ p {
   width: 42px;
   height: 38px;
   border-radius: 8px;
-  border: 1px solid rgba(93, 255, 158, 0.45);
-  background: rgba(34, 211, 111, 0.1);
+  border: 1px solid rgba(0, 204, 255, 0.4);
+  background: rgba(0, 204, 255, 0.08);
   align-items: center;
   justify-content: center;
   flex-direction: column;
@@ -158,7 +204,7 @@ p {
   text-decoration: none;
   padding: 8px 12px;
   border-radius: 10px;
-  color: #d6f6e3;
+  color: var(--text-description);
   font-size: clamp(13px, 1.5vw, 16px);
   white-space: nowrap;
 }
@@ -170,15 +216,15 @@ p {
   right: 10px;
   bottom: 3px;
   height: 2px;
-  background: linear-gradient(90deg, #8bffc0, #22d36f);
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 200ms ease;
 }
 
 .nav-link:hover {
-  background: rgba(34, 211, 111, 0.16);
-  color: #ecfff4;
+  background: rgba(0, 204, 255, 0.1);
+  color: #f0fdf9;
 }
 
 .nav-link:hover::after {
@@ -186,9 +232,9 @@ p {
 }
 
 .nav-link-active {
-  background: rgba(34, 211, 111, 0.2);
-  color: #ecfff4;
-  box-shadow: 0 0 14px rgba(34, 211, 111, 0.24);
+  background: rgba(0, 204, 255, 0.12);
+  color: var(--secondary);
+  box-shadow: 0 0 20px rgba(0, 204, 255, 0.2);
 }
 
 .nav-link-active::after {
@@ -343,12 +389,30 @@ p {
   scroll-margin-top: 96px;
 }
 
-.hero-section,
+.page > .page-panel:not(#home) {
+  border-top: 1px solid rgba(0, 204, 255, 0.07);
+  box-shadow: inset 0 1px 0 rgba(0, 255, 153, 0.04);
+  padding-top: clamp(22px, 3.2vw, 36px);
+}
+
 .card {
-  border: 1px solid var(--border);
-  background: rgba(8, 12, 14, 0.85);
   border-radius: 16px;
   padding: 24px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+    linear-gradient(135deg, rgba(0, 255, 153, 0.42), rgba(0, 204, 255, 0.32), rgba(167, 139, 250, 0.22)) border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  transition: transform 0.28s ease, box-shadow 0.28s ease, filter 0.28s ease;
+}
+
+/* Subtle alternating border accent (matches gradient-border technique; avoids border-image conflicts) */
+.card:nth-child(2n):not(.achievement-stat) {
+  background:
+    linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
+    linear-gradient(135deg, rgba(0, 255, 153, 0.35), rgba(167, 139, 250, 0.45)) border-box;
+  background-clip: padding-box, border-box;
 }
 
 .hero-section {
@@ -389,7 +453,7 @@ p {
   padding: clamp(8px, 2vw, 16px) 0 clamp(12px, 2vw, 20px);
   display: flex;
   flex-direction: column;
-  gap: clamp(16px, 2.5vw, 24px);
+  gap: clamp(18px, 3vw, 30px);
 }
 
 .hero-content {
@@ -433,14 +497,28 @@ p {
   cursor: pointer;
 }
 
+@keyframes scrollCueBounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(5px);
+  }
+}
+
+.home-bottom-cue .scroll-cue > span:first-child {
+  animation: scrollCueBounce 1.6s ease-in-out infinite;
+}
+
 @media (max-height: 700px) {
   #home.home-merged .hero-top.hero-viewport .hero-content {
     gap: 10px;
   }
 
   #home.home-merged .hero-top.hero-viewport .avatar {
-    width: 100px;
-    height: 100px;
+    width: 150px;
+    height: 150px;
     font-size: 30px;
   }
 
@@ -451,29 +529,44 @@ p {
 }
 
 .avatar {
-  width: 130px;
-  height: 130px;
+  width: 240px;
+  height: 240px;
   border-radius: 999px;
-  background: linear-gradient(180deg, #0f1f18, #080f0c);
-  border: 2px solid rgba(93, 255, 158, 0.7);
-  box-shadow: 0 0 0 3px rgba(34, 211, 111, 0.2), 0 0 28px rgba(34, 211, 111, 0.35);
+  border: 2px solid transparent;
+  background:
+    linear-gradient(180deg, #0f1f18, #080f0c) padding-box,
+    linear-gradient(135deg, var(--primary), var(--secondary), var(--accent-purple)) border-box;
+  background-clip: padding-box, border-box;
+  box-shadow: 0 0 0 2px rgba(0, 255, 153, 0.12), 0 0 32px rgba(0, 204, 255, 0.2);
   display: grid;
   place-items: center;
   font-size: 34px;
   font-weight: 700;
+  overflow: hidden;
   transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  /* x > 50%: crop more from left, show more of the right side of the photo */
+  object-position: 62% 48%;
+  transform: scale(1.05) translateY(-3%);
+  display: block;
 }
 
 .avatar:hover {
   transform: scale(1.1);
   filter: brightness(1.08);
-  box-shadow: 0 0 0 3px rgba(34, 211, 111, 0.24), 0 0 34px rgba(34, 211, 111, 0.5);
+  box-shadow: 0 0 0 3px rgba(0, 255, 153, 0.2), 0 0 36px rgba(167, 139, 250, 0.35);
 }
 
 .hero-name {
   font-size: clamp(40px, 6vw, 64px);
   line-height: 1.05;
-  background: linear-gradient(90deg, #8bffc0, #32e77e);
+  letter-spacing: -0.02em;
+  background: linear-gradient(90deg, var(--primary), var(--secondary));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -481,12 +574,12 @@ p {
 
 .hero-role {
   font-weight: 500;
-  color: #dbffe9;
+  color: var(--primary);
   font-size: clamp(20px, 3vw, 34px);
 }
 
 .lead {
-  color: var(--muted);
+  color: var(--text-description);
   line-height: 1.7;
   max-width: 780px;
 }
@@ -498,21 +591,86 @@ p {
 }
 
 .chip {
-  border: 1px solid rgba(34, 211, 111, 0.38);
-  background: rgba(34, 211, 111, 0.14);
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.35);
   padding: 5px 10px;
   border-radius: 999px;
   font-size: 14px;
-  color: #d8ffe8;
+  color: var(--text-description);
   transition: transform 180ms ease, background-color 180ms ease, border-color 180ms ease,
     box-shadow 180ms ease;
 }
 
 .chip:hover {
-  transform: scale(1.05);
-  background: rgba(34, 211, 111, 0.3);
-  border-color: rgba(93, 255, 158, 0.75);
-  box-shadow: 0 0 14px rgba(34, 211, 111, 0.3);
+  transform: scale(1.06);
+  background: rgba(0, 255, 153, 0.88);
+  border-color: rgba(0, 255, 153, 0.9);
+  color: #050808;
+  box-shadow: 0 0 20px rgba(0, 255, 153, 0.35);
+}
+
+.chip--primary {
+  border-color: rgba(0, 255, 153, 0.85);
+  background: rgba(0, 255, 153, 0.18);
+  box-shadow: 0 0 16px rgba(0, 255, 153, 0.22);
+  color: #eafff5;
+}
+
+.chip--primary:hover {
+  transform: scale(1.08);
+  background: rgba(0, 255, 153, 0.28);
+  border-color: rgba(0, 255, 153, 0.95);
+  box-shadow: 0 0 24px rgba(0, 255, 153, 0.45);
+  color: #06100c;
+}
+
+.hero-proof-bar {
+  width: 100%;
+  max-width: 940px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 12px;
+  padding: 10px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(0, 204, 255, 0.22);
+  background: rgba(8, 15, 20, 0.55);
+  backdrop-filter: blur(10px);
+}
+
+.hero-proof-item {
+  font-size: 14px;
+  font-weight: 800;
+  color: rgba(236, 255, 244, 0.92);
+  white-space: nowrap;
+}
+
+.hero-proof-sep {
+  opacity: 0.35;
+  font-weight: 900;
+  color: rgba(216, 255, 232, 0.9);
+}
+
+.hero-proof-highlight {
+  color: #72ffb1;
+  text-shadow: 0 0 14px rgba(0, 255, 153, 0.18);
+}
+
+.hero-proof-highlight--yellow {
+  color: #ffe27a;
+  text-shadow: 0 0 14px rgba(255, 212, 59, 0.18);
+}
+
+.hero-proof-highlight--accent {
+  color: #65d6ff;
+  text-shadow: 0 0 14px rgba(0, 204, 255, 0.18);
+}
+
+.hero-proof-highlight--purple {
+  color: #c4b5fd;
+  text-shadow: 0 0 14px rgba(167, 139, 250, 0.25);
 }
 
 .actions {
@@ -535,28 +693,30 @@ p {
 }
 
 .btn-primary {
-  background: linear-gradient(90deg, #1cb85f, #31e47f);
-  color: white;
-  box-shadow: 0 0 18px rgba(34, 211, 111, 0.35);
+  background: linear-gradient(135deg, #00e68a, #00ccff);
+  color: #050808;
+  box-shadow: 0 0 18px rgba(0, 255, 150, 0.28), 0 0 24px rgba(0, 204, 255, 0.15);
 }
 
 .btn-primary:hover {
   transform: scale(1.05);
-  filter: brightness(1.05);
-  background: linear-gradient(90deg, #18a856, #27d773);
+  filter: brightness(1.06);
+  background: linear-gradient(135deg, #00e68a, #33d4ff);
+  box-shadow: 0 0 28px rgba(0, 255, 150, 0.45), 0 0 32px rgba(0, 204, 255, 0.3);
 }
 
 .btn-secondary {
-  border-color: var(--border);
-  color: var(--text);
-  background: rgba(22, 40, 33, 0.6);
+  border-color: rgba(0, 204, 255, 0.45);
+  color: var(--secondary);
+  background: rgba(0, 204, 255, 0.08);
 }
 
 .btn-secondary:hover {
   transform: scale(1.05);
-  background: rgba(20, 54, 40, 0.92);
-  border-color: rgba(93, 255, 158, 0.6);
-  box-shadow: 0 0 14px rgba(34, 211, 111, 0.2);
+  background: rgba(0, 204, 255, 0.16);
+  border-color: rgba(0, 204, 255, 0.75);
+  box-shadow: 0 0 22px rgba(0, 204, 255, 0.25);
+  color: #e0f7ff;
 }
 
 .about-layout {
@@ -571,10 +731,366 @@ p {
   gap: 16px;
 }
 
+/* About narrative (right column): heading + hierarchy so copy doesn’t feel “empty” */
+.about-narrative-card.stack {
+  gap: 16px;
+}
+
+.about-narrative-title {
+  margin: 0;
+  font-size: clamp(1.05rem, 1.9vw, 1.22rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: #f4fffa;
+}
+
+.about-narrative-lead {
+  position: relative;
+  margin: 0;
+  max-width: 58ch;
+  color: var(--text);
+  font-size: clamp(1.02rem, 1.65vw, 1.1rem);
+  line-height: 1.75;
+  padding-left: 16px;
+}
+
+.about-narrative-lead::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.2em;
+  bottom: 0.2em;
+  width: 3px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--primary), var(--secondary));
+  opacity: 0.9;
+}
+
+.about-narrative-note {
+  margin: 0;
+  max-width: 58ch;
+  padding-top: 14px;
+  margin-top: 2px;
+  border-top: 1px solid rgba(0, 204, 255, 0.14);
+  color: var(--text-description);
+  font-size: clamp(0.95rem, 1.45vw, 1.02rem);
+  line-height: 1.72;
+}
+
 .projects-grid {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+
+/* Screenshot-style project cards (hero banner + tight one-line summary) */
+.projects-grid > article.card.stack {
+  position: relative;
+  overflow: hidden;
+  padding: 18px;
+  padding-top: 150px; /* space for the hero banner */
+}
+
+.projects-grid > article.card.stack::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 140px;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(139, 255, 192, 0.35), transparent 55%),
+    linear-gradient(135deg, rgba(34, 211, 111, 0.25), rgba(0, 89, 156, 0.18));
+  border-bottom: 1px solid rgba(93, 255, 158, 0.18);
+  z-index: 0;
+}
+
+.projects-grid > article.card.stack > .project-hero-img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 140px;
+  object-fit: cover;
+  object-position: center;
+  z-index: 0;
+}
+
+.projects-grid > article.card.stack > .badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+}
+
+.projects-grid > article.card.stack h3 {
+  margin: 0 0 8px;
+  position: relative;
+  z-index: 1;
+}
+
+.projects-grid > article.card.stack > p {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  line-height: 1.5;
+  max-width: 95%;
+  color: rgba(236, 255, 244, 0.92);
+  font-size: 14px;
+}
+
+.projects-grid > article.card.stack .tech-stack-heading {
+  position: relative;
+  z-index: 1;
+  margin: 10px 0 -2px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  color: rgba(236, 255, 244, 0.9);
+}
+
+.projects-grid > article.card.stack .skills {
+  position: relative;
+  z-index: 1;
+}
+
+.projects-grid > article.card.stack .actions {
+  position: relative;
+  z-index: 1;
+  margin-top: 2px;
+}
+
+/* Projects layout: full-width cards, image on the left, details on the right */
+#projects .projects-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+#projects .projects-subheading {
+  margin: 10px 0 0;
+  text-align: center;
+  font-size: clamp(18px, 2.2vw, 22px);
+  color: rgba(236, 255, 244, 0.92);
+}
+
+#projects .other-projects-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+
+#projects .other-project-card {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 16px;
+}
+
+#projects .other-project-card .project-media {
+  width: 100%;
+  flex: 0 0 auto;
+  height: 170px;
+}
+
+#projects .other-project-card .project-details {
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+#projects .other-project-card .actions {
+  margin-top: 4px;
+}
+
+#projects .projects-grid > article.card.stack {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  gap: 18px;
+  padding: 16px;
+  padding-top: 16px;
+}
+
+/* Disable the earlier banner overlay when we use real thumbnails */
+#projects .projects-grid > article.card.stack::before {
+  display: none;
+}
+
+#projects .project-media {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(8, 12, 14, 0.4);
+}
+
+#projects .project-media > .project-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  display: block;
+  transform: scale(1);
+  transition: transform 260ms ease, filter 260ms ease;
+}
+
+#projects .project-media > .project-hero-img--contain {
+  object-fit: contain;
+  background: rgba(8, 12, 14, 0.55);
+}
+
+#projects .project-media:hover > .project-hero-img,
+#projects .project-media:focus-within > .project-hero-img {
+  transform: scale(1.05);
+  filter: saturate(1.05) brightness(1.02);
+}
+
+#projects .project-media-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 12px 14px;
+  color: rgba(236, 255, 244, 0.95);
+  font-weight: 900;
+  text-decoration: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(6, 20, 14, 0.72) 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 2;
+}
+
+#projects .project-media:hover .project-media-overlay,
+#projects .project-media:focus-within .project-media-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#projects .projects-grid > article.card.stack .project-media {
+  position: relative;
+  width: 340px;
+  flex: 0 0 340px;
+  height: 190px;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(8, 12, 14, 0.4);
+}
+
+#projects .projects-grid > article.card.stack .project-media > .project-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  z-index: 1;
+  transform: scale(1);
+  transition: transform 260ms ease, filter 260ms ease;
+  display: block;
+}
+
+#projects .projects-grid > article.card.stack .project-media > .project-hero-img--contain {
+  object-fit: contain;
+  background: rgba(8, 12, 14, 0.55);
+}
+
+#projects .projects-grid > article.card.stack .project-media:hover > .project-hero-img,
+#projects .projects-grid > article.card.stack .project-media:focus-within > .project-hero-img {
+  transform: scale(1.05);
+  filter: saturate(1.05) brightness(1.02);
+}
+
+#projects .projects-grid > article.card.stack .project-media-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+  padding: 12px 14px;
+  color: rgba(236, 255, 244, 0.95);
+  font-weight: 900;
+  text-decoration: none;
+  background: linear-gradient(180deg, rgba(0, 0, 0, 0) 35%, rgba(6, 20, 14, 0.72) 100%);
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 220ms ease, transform 220ms ease;
+  z-index: 2;
+}
+
+#projects .projects-grid > article.card.stack .project-media:hover .project-media-overlay,
+#projects .projects-grid > article.card.stack .project-media:focus-within .project-media-overlay {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+#projects .project-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 6px;
+}
+
+#projects .project-card--featured {
+  border-color: rgba(0, 255, 153, 0.45);
+  box-shadow:
+    inset 0 0 0 1px rgba(0, 204, 255, 0.1),
+    0 0 28px rgba(0, 255, 153, 0.12),
+    0 0 40px rgba(167, 139, 250, 0.1);
+}
+
+#projects .project-card--featured h3 {
+  font-size: 1.25rem;
+}
+
+#projects .project-card--featured .project-media {
+  width: 420px;
+  flex-basis: 420px;
+  height: 230px;
+}
+
+.chip--project-core {
+  border-color: rgba(0, 255, 153, 0.55);
+  background: rgba(0, 255, 153, 0.12);
+  color: rgba(236, 255, 244, 0.98);
+}
+
+.chip--project-core:hover {
+  transform: scale(1.08);
+  border-color: rgba(0, 255, 153, 0.9);
+  background: rgba(0, 255, 153, 0.22);
+  color: #06100c;
+}
+
+#projects .project-details {
+  flex: 1 1 auto;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+/* Make sure the one-line description stays compact */
+#projects .project-details > p {
+  max-width: none;
+}
+
+@media (max-width: 900px) {
+  #projects .projects-grid > article.card.stack {
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  #projects .projects-grid > article.card.stack .project-media {
+    width: 100%;
+    flex: 0 0 auto;
+    height: 170px;
+  }
+
+  #projects .project-card--featured .project-media {
+    width: 100%;
+    flex-basis: auto;
+    height: 190px;
+  }
 }
 
 /* Contact page: form full width, icon row below (not a 2-col grid) */
@@ -584,6 +1100,274 @@ p {
   display: flex;
   flex-direction: column;
   gap: clamp(22px, 4vw, 36px);
+}
+
+.contact-layout {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(260px, 0.95fr) minmax(280px, 1.05fr);
+  gap: clamp(16px, 3.8vw, 34px);
+  align-items: start;
+}
+
+.contact-left {
+  display: flex;
+  flex-direction: column;
+  gap: clamp(14px, 2.8vw, 22px);
+}
+
+.contact-right {
+  width: 100%;
+}
+
+.contact-availability-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 16px;
+  background: rgba(34, 211, 111, 0.14);
+  border: 1px solid rgba(34, 211, 111, 0.35);
+  box-shadow: 0 0 22px rgba(34, 211, 111, 0.14);
+  color: #d9ffe9;
+  font-weight: 900;
+  letter-spacing: 0.01em;
+}
+
+.contact-availability-badge i {
+  font-style: normal;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: #22d36f;
+  box-shadow: 0 0 0 6px rgba(34, 211, 111, 0.14);
+}
+
+.contact-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.contact-action {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: 18px;
+  border: 1px solid rgba(93, 255, 158, 0.22);
+  background: rgba(10, 24, 19, 0.66);
+  transition: all 0.25s ease;
+}
+
+.contact-action:hover,
+.contact-action:focus-visible {
+  transform: translateY(-3px) scale(1.02);
+  border-color: rgba(93, 255, 158, 0.55);
+  background: linear-gradient(rgba(0, 255, 153, 0.06), rgba(0, 255, 153, 0.06)), rgba(10, 24, 19, 0.66);
+  box-shadow: 0 0 18px rgba(0, 255, 150, 0.22);
+  filter: brightness(1.05);
+  outline: none;
+}
+
+.contact-action-icon.contact-icon-link {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  border-radius: 12px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 204, 255, 0.08);
+  border: 1px solid rgba(0, 204, 255, 0.2);
+  transition: background 0.25s ease, box-shadow 0.25s ease;
+}
+
+.contact-action-icon.contact-icon-link svg {
+  color: var(--secondary);
+  opacity: 0.85;
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+  width: 24px;
+  height: 24px;
+  display: block;
+}
+
+.contact-action:hover .contact-action-icon.contact-icon-link,
+.contact-action:focus-visible .contact-action-icon.contact-icon-link {
+  background: rgba(0, 204, 255, 0.18);
+  box-shadow: 0 0 20px rgba(0, 204, 255, 0.25);
+}
+
+.contact-action:hover .contact-action-icon.contact-icon-link svg,
+.contact-action:focus-visible .contact-action-icon.contact-icon-link svg {
+  opacity: 1;
+  transform: scale(1.15) rotate(3deg);
+}
+
+.contact-action--email:hover .contact-action-icon.contact-icon-link svg,
+.contact-action--email:focus-visible .contact-action-icon.contact-icon-link svg {
+  color: #ff6b6b;
+}
+
+.contact-action--phone:hover .contact-action-icon.contact-icon-link svg,
+.contact-action--phone:focus-visible .contact-action-icon.contact-icon-link svg {
+  color: var(--primary);
+}
+
+.contact-action--linkedin:hover .contact-action-icon.contact-icon-link svg,
+.contact-action--linkedin:focus-visible .contact-action-icon.contact-icon-link svg {
+  color: #0a66c2;
+}
+
+.contact-action--github:hover .contact-action-icon.contact-icon-link svg,
+.contact-action--github:focus-visible .contact-action-icon.contact-icon-link svg {
+  color: #ffffff;
+}
+
+.contact-action-text {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.contact-action-label {
+  font-size: 0.85rem;
+  color: rgba(216, 255, 232, 0.86);
+  font-weight: 900;
+  letter-spacing: 0.01em;
+  opacity: 0.85;
+}
+
+.contact-action-value {
+  color: #ecfff4;
+  font-weight: 800;
+  font-size: 1rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.contact-quick-cta {
+  text-align: center;
+  max-width: 680px;
+  margin: 12px auto 0;
+  color: rgba(232, 241, 238, 0.84);
+  font-size: 1rem;
+}
+
+.contact-quick-cta a {
+  color: #9effc7;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+}
+
+.contact-success {
+  margin: 0 0 12px;
+  padding: 12px 14px;
+  border-radius: 12px;
+  background: rgba(34, 211, 111, 0.14);
+  border: 1px solid rgba(34, 211, 111, 0.35);
+  color: #d9ffe9;
+  font-weight: 900;
+}
+
+.contact-success[hidden] {
+  display: none !important;
+}
+
+.floating-field {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.floating-field input,
+.floating-field textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(93, 255, 158, 0.25);
+  background: rgba(12, 28, 22, 0.75);
+  color: #ecfff4;
+  padding: 18px 12px 10px;
+  font: inherit;
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
+  resize: vertical;
+}
+
+.floating-field input:focus,
+.floating-field textarea:focus {
+  outline: none;
+  border-color: rgba(93, 255, 158, 0.7);
+  box-shadow: 0 0 0 3px rgba(93, 255, 158, 0.14);
+  filter: brightness(1.03);
+}
+
+.floating-field textarea {
+  min-height: 140px;
+}
+
+.floating-field input::placeholder,
+.floating-field textarea::placeholder {
+  color: rgba(159, 181, 170, 0.55);
+  transition: color 0.18s ease;
+}
+
+.floating-field input:placeholder-shown::placeholder,
+.floating-field textarea:placeholder-shown::placeholder {
+  color: transparent;
+}
+
+.floating-field label {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: rgba(159, 181, 170, 0.92);
+  font-size: 0.92rem;
+  font-weight: 900;
+  pointer-events: none;
+  padding: 0 6px;
+  background: transparent;
+  border-radius: 10px;
+  transition: top 0.18s ease, transform 0.18s ease, font-size 0.18s ease, color 0.18s ease, background 0.18s ease;
+}
+
+.floating-field input:focus + label,
+.floating-field textarea:focus + label {
+  top: 8px;
+  transform: translateY(0);
+  font-size: 0.78rem;
+  color: #9effc7;
+  background: rgba(6, 18, 14, 0.98);
+}
+
+.floating-field input:not(:placeholder-shown) + label,
+.floating-field textarea:not(:placeholder-shown) + label {
+  top: 8px;
+  transform: translateY(0);
+  font-size: 0.78rem;
+  color: #9effc7;
+  background: rgba(6, 18, 14, 0.98);
+}
+
+.contact-submit {
+  background: linear-gradient(135deg, #00e68a, #00ccff) !important;
+}
+
+.contact-submit:hover {
+  transform: scale(1.03);
+  box-shadow: 0 0 20px rgba(0, 255, 150, 0.4);
+  filter: brightness(1.05);
+}
+
+/* mobile */
+@media (max-width: 900px) {
+  .contact-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 .contact-form-card {
@@ -596,76 +1380,17 @@ p {
   padding: clamp(8px, 2vw, 16px) 0 0;
 }
 
+.contact-info-card--left {
+  text-align: left;
+  padding: clamp(14px, 2.5vw, 20px);
+}
+
 .contact-info-title {
   margin: 0 0 clamp(16px, 3vw, 24px);
   font-size: clamp(1.2rem, 2.5vw, 1.45rem);
   font-weight: 700;
   color: #f4fffa;
   letter-spacing: 0.02em;
-}
-
-.contact-icon-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: clamp(12px, 3.5vw, 28px);
-}
-
-.contact-icon-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  text-decoration: none;
-  border-radius: 12px;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-
-.contact-icon-link:hover {
-  transform: translateY(-3px) scale(1.05);
-  filter: brightness(1.08);
-  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.35);
-}
-
-.contact-icon-link:focus-visible {
-  outline: 2px solid rgba(93, 255, 158, 0.7);
-  outline-offset: 4px;
-}
-
-.contact-icon-link svg {
-  display: block;
-  width: 34px;
-  height: 34px;
-}
-
-.contact-icon-link--email {
-  border-radius: 10px;
-}
-
-.contact-icon-link--phone {
-  border-radius: 10px;
-}
-
-.contact-icon-link--linkedin {
-  border-radius: 8px;
-  background: #0a66c2;
-  padding: 5px;
-}
-
-.contact-icon-link--linkedin svg {
-  width: 28px;
-  height: 28px;
-}
-
-.contact-icon-link--github {
-  border-radius: 50%;
-  background: #fff;
-  padding: 4px;
-}
-
-.contact-icon-link--github svg {
-  width: 28px;
-  height: 28px;
 }
 
 .stack {
@@ -683,6 +1408,71 @@ p {
   margin: 0 auto;
 }
 
+.core-stack-row {
+  width: 100%;
+  max-width: 980px;
+  margin: 10px auto 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 clamp(8px, 2vw, 16px);
+}
+
+.core-stack-title {
+  text-align: center;
+  font-weight: 1000;
+  font-size: 0.98rem;
+  letter-spacing: 0.01em;
+  color: rgba(236, 255, 244, 0.95);
+}
+
+.core-stack-chips {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.chip--core {
+  border-color: rgba(0, 255, 153, 0.55);
+  background: rgba(0, 255, 153, 0.12);
+  box-shadow: 0 0 18px rgba(0, 255, 153, 0.16);
+  color: #eafff5;
+}
+
+.chip--core:hover {
+  transform: scale(1.08);
+  border-color: rgba(0, 255, 153, 0.95);
+  background: rgba(0, 255, 153, 0.22);
+  box-shadow: 0 0 28px rgba(0, 255, 153, 0.28);
+  color: #06100c;
+}
+
+.chip--core-primary {
+  border-color: rgba(0, 255, 153, 0.95);
+  background: rgba(0, 255, 153, 0.24);
+  box-shadow: 0 0 32px rgba(0, 255, 153, 0.28);
+  color: #06100c;
+}
+
+.skills-proof-section ul {
+  margin: 0;
+  padding-left: 18px;
+}
+
+.skill-row span {
+  color: transparent !important; /* remove visible self-rated % */
+  font-size: 0;
+}
+
+.skills-proof-list li {
+  margin-bottom: 12px;
+}
+
+.skill-filter {
+  transition: transform 180ms ease, border-color 180ms ease, background-color 180ms ease, box-shadow 180ms ease, filter 180ms ease;
+}
+
 .skill-filter-row {
   display: flex;
   flex-wrap: wrap;
@@ -691,9 +1481,9 @@ p {
 }
 
 .skill-filter {
-  border: 1px solid rgba(93, 255, 158, 0.25);
-  background: rgba(15, 33, 25, 0.66);
-  color: #d8ffe8;
+  border: 1px solid rgba(148, 163, 184, 0.2);
+  background: rgba(15, 23, 42, 0.35);
+  color: var(--text-description);
   border-radius: 999px;
   padding: 8px 14px;
   font-size: 13px;
@@ -705,15 +1495,16 @@ p {
 
 .skill-filter:hover {
   transform: translateY(-1px);
-  border-color: rgba(93, 255, 158, 0.55);
-  background: rgba(25, 58, 43, 0.86);
+  border-color: rgba(0, 204, 255, 0.45);
+  background: rgba(0, 204, 255, 0.1);
+  color: #f0fdf9;
 }
 
 .active-filter {
-  background: linear-gradient(90deg, #18b25d, #31e47f);
-  border-color: rgba(93, 255, 158, 0.8);
-  color: #0a1f13;
-  box-shadow: 0 0 15px rgba(34, 211, 111, 0.35);
+  background: linear-gradient(135deg, rgba(0, 204, 255, 0.22), rgba(167, 139, 250, 0.18));
+  border-color: rgba(0, 204, 255, 0.65);
+  color: #f0fdfa;
+  box-shadow: 0 0 18px rgba(0, 204, 255, 0.25), 0 0 22px rgba(167, 139, 250, 0.12);
 }
 
 .skill-card-grid {
@@ -723,8 +1514,8 @@ p {
 }
 
 .skill-card {
-  border: 1px solid rgba(34, 211, 111, 0.28);
-  background: rgba(10, 24, 19, 0.66);
+  border: 1px solid rgba(148, 163, 184, 0.14);
+  background: rgba(10, 31, 26, 0.55);
   border-radius: 14px;
   padding: 14px;
   display: grid;
@@ -734,8 +1525,42 @@ p {
 
 .skill-card:hover {
   transform: translateY(-2px);
-  border-color: rgba(93, 255, 158, 0.55);
-  box-shadow: 0 0 14px rgba(34, 211, 111, 0.2);
+  border-color: rgba(0, 204, 255, 0.35);
+  box-shadow: 0 6px 22px rgba(0, 0, 0, 0.32), 0 0 16px rgba(167, 139, 250, 0.1);
+}
+
+.skill-card--primary {
+  border-color: rgba(0, 255, 153, 0.95) !important;
+  box-shadow: 0 0 22px rgba(0, 255, 153, 0.22), inset 0 0 0 1px rgba(0, 255, 153, 0.18);
+  position: relative;
+}
+
+.skill-card--primary .skill-icon {
+  border-color: rgba(0, 255, 153, 0.95) !important;
+  background: rgba(0, 255, 153, 0.2) !important;
+  color: #eafff5 !important;
+}
+
+.skill-card--primary::after {
+  content: "Primary Skill";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 800;
+  color: #06100c;
+  background: linear-gradient(90deg, rgba(24, 178, 93, 0.95), rgba(49, 228, 127, 0.95));
+  box-shadow: 0 0 18px rgba(34, 211, 111, 0.35);
+  border: 1px solid rgba(93, 255, 158, 0.55);
+  pointer-events: none;
+}
+
+.skill-card:hover .skill-meter-fill,
+.skill-card:active .skill-meter-fill,
+.skill-card:focus-within .skill-meter-fill {
+  transform: scaleX(1);
 }
 
 .skill-card-head {
@@ -751,9 +1576,9 @@ p {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: rgba(34, 211, 111, 0.14);
-  color: #92ffbf;
-  border: 1px solid rgba(93, 255, 158, 0.28);
+  background: rgba(0, 204, 255, 0.08);
+  color: #9ee9ff;
+  border: 1px solid rgba(0, 204, 255, 0.22);
   font-size: 20px;
   flex: 0 0 44px;
 }
@@ -763,6 +1588,12 @@ p {
   font-weight: 800;
   line-height: 1;
   letter-spacing: -0.02em;
+}
+
+.skill-icon-text svg {
+  width: 22px;
+  height: 22px;
+  display: block;
 }
 
 .skill-main {
@@ -801,6 +1632,9 @@ p {
   height: 100%;
   border-radius: inherit;
   background: linear-gradient(90deg, #1ac163, #49f394);
+  transform-origin: left;
+  transform: scaleX(0);
+  transition: transform 260ms ease;
 }
 
 .skill-category {
@@ -825,39 +1659,277 @@ p {
   gap: 10px;
 }
 
-.certification-card {
-  gap: 8px;
+.cert-flip-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 14px;
+  align-items: stretch;
 }
 
-.cert-card-link {
-  text-decoration: none;
+.cert-flip-card {
+  height: 328px;
+  outline: none;
+  perspective: 1100px;
+  transition: transform 0.35s ease;
+}
+
+.cert-flip-card--featured {
+  grid-column: 1 / -1;
+  height: 380px;
+}
+
+.cert-flip-card--span-4 {
+  grid-column: span 4;
+}
+
+.cert-flip-card--span-6 {
+  grid-column: span 6;
+}
+
+.cert-flip-card:hover {
+  transform: translateY(-2px);
+}
+
+.cert-flip-card:focus-visible {
+  box-shadow: 0 0 0 2px rgba(93, 255, 158, 0.55);
+  border-radius: 14px;
+}
+
+.cert-split {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: 1fr 1fr;
+  height: 100%;
+  position: relative;
+  border-radius: 14px;
+  border: 1px solid rgba(148, 163, 184, 0.15);
+  background: rgba(10, 31, 26, 0.75);
+  box-shadow: inset 0 0 0 1px rgba(0, 204, 255, 0.06);
+  overflow: hidden;
+  transform-style: preserve-3d;
+  transition: transform 0.6s ease;
+}
+
+.cert-flip-card:hover .cert-split,
+.cert-flip-card:focus-within .cert-split {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+.cert-flip-card.cert-flipped .cert-split {
+  transform: rotateY(180deg) scale(1.02);
+}
+
+.cert-visual {
+  background:
+    radial-gradient(circle at 30% 22%, rgba(139, 255, 192, 0.35), transparent 58%),
+    linear-gradient(135deg, rgba(34, 211, 111, 0.24), rgba(0, 89, 156, 0.22));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: none;
+  border-bottom: 1px solid rgba(93, 255, 158, 0.18);
+  overflow: hidden;
+}
+
+.cert-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
-.cert-top-row {
+.cert-info {
+  position: static;
+  margin: 0;
+  padding: 14px 14px 12px;
+  font-size: 0.92rem;
+  line-height: 1.42;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: 10px;
+}
+
+.cert-info > h3 {
+  margin: 0;
+  color: #58a9ff;
+  font-size: 1.04rem;
+  font-weight: 800;
+  line-height: 1.2;
+}
+
+.cert-front-badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  width: 100%;
+  align-items: center;
+}
+
+.cert-badge--featured {
+  border-color: rgba(167, 139, 250, 0.65);
+  background: rgba(167, 139, 250, 0.16);
+  color: #ede9fe;
+  box-shadow: 0 0 14px rgba(167, 139, 250, 0.2);
+}
+
+.cert-back-summary {
+  margin: 0;
+  color: rgba(236, 255, 244, 0.95);
+  font-size: 0.86rem;
+  line-height: 1.45;
+  font-weight: 500;
+}
+
+.cert-front-meta {
+  margin-top: auto;
+  width: 100%;
   display: flex;
   justify-content: space-between;
   align-items: center;
   gap: 10px;
+  font-size: 0.8rem;
+  color: rgba(184, 201, 255, 0.92);
 }
 
-.cert-date {
-  color: #9effc7;
-  font-size: 0.82rem;
+.cert-front-meta span {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.cert-section-lead {
+  text-align: center;
+  max-width: 760px;
+  margin: 0 auto 18px;
+}
+
+.cert-hover-meta {
+  position: absolute;
+  inset: 0;
+  padding: 14px;
+  background: rgba(8, 48, 26, 0.95);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  gap: 10px;
+  /* Prevent mirrored/backwards text on the flipped face */
+  transform: rotateY(180deg);
+  z-index: 3;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.cert-flip-card:hover .cert-hover-meta,
+.cert-flip-card:focus-within .cert-hover-meta,
+.cert-flip-card.cert-flipped .cert-hover-meta {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.cert-visual,
+.cert-info > h3,
+.cert-front-badges,
+.cert-front-meta {
+  transition: opacity 0.25s ease;
+}
+
+.cert-flip-card:hover .cert-visual,
+.cert-flip-card:focus-within .cert-visual,
+.cert-flip-card.cert-flipped .cert-visual,
+.cert-flip-card:hover .cert-info > h3,
+.cert-flip-card:focus-within .cert-info > h3,
+.cert-flip-card.cert-flipped .cert-info > h3,
+.cert-flip-card:hover .cert-front-badges,
+.cert-flip-card:focus-within .cert-front-badges,
+.cert-flip-card.cert-flipped .cert-front-badges,
+.cert-flip-card:hover .cert-front-meta,
+.cert-flip-card:focus-within .cert-front-meta,
+.cert-flip-card.cert-flipped .cert-front-meta {
+  opacity: 0;
+}
+
+.cert-meta-row {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+  color: #d7defc;
+  font-size: 0.9rem;
+}
+
+.cert-meta-label {
+  color: #c4ccee;
   font-weight: 600;
 }
 
-.cert-id {
-  border: 1px solid rgba(93, 255, 158, 0.35);
-  background: rgba(93, 255, 158, 0.08);
-  color: #d8ffe8;
-  font-size: 0.75rem;
-  padding: 3px 8px;
-  border-radius: 999px;
+.cert-meta-value {
+  color: #f1f4ff;
+  font-weight: 700;
 }
 
-.cert-issuer {
-  color: #b7d4c6;
+.cert-skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: -2px;
+}
+
+.cert-skill-tags .chip {
+  font-size: 0.76rem;
+  padding: 4px 8px;
+  border-radius: 8px;
+  border-color: rgba(130, 142, 240, 0.35);
+  background: rgba(85, 97, 210, 0.28);
+  color: #dce3ff;
+}
+
+.cert-hover-meta .btn {
+  margin-top: auto;
+  width: 100%;
+  justify-content: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  font-size: 0.95rem;
+  min-height: 42px;
+}
+
+@media (max-width: 980px) {
+  .cert-flip-card--span-4 {
+    grid-column: span 6;
+  }
+
+  .cert-flip-card--span-6 {
+    grid-column: span 6;
+  }
+}
+
+@media (max-width: 760px) {
+  .cert-flip-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .cert-flip-card--featured,
+  .cert-flip-card--span-4,
+  .cert-flip-card--span-6 {
+    grid-column: 1 / -1;
+  }
+
+  .cert-flip-card {
+    height: 302px;
+  }
+
+  .cert-flip-card--featured {
+    height: 340px;
+  }
+
+  .cert-split {
+    grid-template-rows: 1fr 1fr;
+  }
 }
 
 .contact-form {
@@ -947,6 +2019,238 @@ p {
   gap: 10px;
 }
 
+.achievements-grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 14px;
+}
+
+.achievement-stat {
+  position: relative;
+  padding: 16px 16px;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  grid-column: span 6;
+
+  border-radius: 16px;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(10, 31, 26, 0.78), rgba(10, 31, 26, 0.78)) padding-box,
+    linear-gradient(135deg, rgba(0, 255, 153, 0.55), rgba(0, 204, 255, 0.45), rgba(167, 139, 250, 0.35)) border-box;
+  background-clip: padding-box, border-box;
+  backdrop-filter: blur(8px);
+
+  box-shadow: inset 0 0 0 1px rgba(0, 204, 255, 0.06);
+  transition: transform 220ms ease, box-shadow 220ms ease, filter 220ms ease;
+}
+
+.achievement-stat:nth-child(2n) {
+  background:
+    linear-gradient(rgba(10, 31, 26, 0.78), rgba(10, 31, 26, 0.78)) padding-box,
+    linear-gradient(135deg, rgba(0, 255, 153, 0.35), rgba(167, 139, 250, 0.45)) border-box;
+  background-clip: padding-box, border-box;
+}
+
+.achievement-stat::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top right, rgba(0, 255, 153, 0.08), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
+.achievement-stat:hover::before {
+  opacity: 1;
+}
+
+.achievement-stat:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 0 32px rgba(0, 255, 150, 0.25),
+    0 0 40px rgba(167, 139, 250, 0.2),
+    inset 0 0 0 1px rgba(0, 204, 255, 0.12);
+  filter: brightness(1.03);
+}
+
+.achievement-stat--hero {
+  grid-column: 1 / -1;
+  padding: 18px 18px;
+}
+
+.achievement-stat--small {
+  grid-column: span 6;
+}
+
+.achievement-stat-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.achievement-stat-head {
+  /* overridden by the premium layout above */
+  /* (kept for backward compatibility with the old layout) */
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.achievement-stat-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(34, 211, 111, 0.14);
+  border: 1px solid rgba(93, 255, 158, 0.28);
+  color: #d8ffe8;
+  flex: 0 0 40px;
+  font-size: 18px;
+}
+
+.achievement-icon--revenue {
+  background: rgba(59, 130, 246, 0.14);
+  border-color: rgba(59, 130, 246, 0.35);
+  color: #93c5fd;
+}
+
+.achievement-icon--dsa {
+  background: rgba(34, 211, 111, 0.14);
+  border-color: rgba(34, 211, 111, 0.35);
+  color: #c6ffd6;
+}
+
+.achievement-icon--rank {
+  background: rgba(167, 139, 250, 0.14);
+  border-color: rgba(167, 139, 250, 0.32);
+  color: #c4b5fd;
+}
+
+.achievement-icon--hkr {
+  background: rgba(255, 212, 59, 0.12);
+  border-color: rgba(255, 212, 59, 0.32);
+  color: #ffeaa0;
+}
+
+.achievement-icon--systems {
+  background: rgba(0, 204, 255, 0.14);
+  border-color: rgba(0, 204, 255, 0.35);
+  color: #9ee9ff;
+}
+
+.achievement-icon-svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+.achievement-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: auto;
+  padding-top: 2px;
+}
+
+.achievement-tag {
+  font-size: 12px;
+  font-weight: 700;
+  color: #cfeee1;
+  border: 1px solid rgba(93, 255, 158, 0.25);
+  background: rgba(34, 211, 111, 0.12);
+  padding: 6px 10px;
+  border-radius: 999px;
+}
+
+.achievement-stat-title {
+  margin: 0;
+  color: #ecfff4;
+  font-size: 1rem;
+  font-weight: 900;
+  letter-spacing: 0.02em;
+  line-height: 1.2;
+}
+
+.achievement-number {
+  display: inline-block;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  font-size: 1.22em;
+  text-shadow:
+    0 0 12px rgba(0, 255, 153, 0.15),
+    0 0 18px rgba(0, 204, 255, 0.1);
+}
+
+.achievement-number--green {
+  color: #72ffb1;
+}
+
+.achievement-number--yellow {
+  color: #ffe27a;
+  text-shadow: 0 0 14px rgba(255, 212, 59, 0.15);
+}
+
+.achievement-number--accent {
+  color: #65d6ff;
+  text-shadow: 0 0 14px rgba(0, 204, 255, 0.15);
+}
+
+.achievement-stat-body {
+  margin: 0;
+  color: var(--muted);
+  line-height: 1.65;
+  font-size: 0.94rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  overflow: hidden;
+}
+
+.reveal-up {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition: opacity 600ms ease, transform 600ms ease, filter 600ms ease;
+}
+
+.reveal-up.in-view {
+  opacity: 1;
+  transform: translateY(0);
+  filter: blur(0);
+}
+
+.achievements-grid .reveal-up:nth-child(1) {
+  transition-delay: 0s;
+}
+.achievements-grid .reveal-up:nth-child(2) {
+  transition-delay: 0.1s;
+}
+.achievements-grid .reveal-up:nth-child(3) {
+  transition-delay: 0.2s;
+}
+.achievements-grid .reveal-up:nth-child(4) {
+  transition-delay: 0.3s;
+}
+.achievements-grid .reveal-up:nth-child(5) {
+  transition-delay: 0.38s;
+}
+
+@media (max-width: 900px) {
+  .achievement-stat--hero,
+  .achievement-stat--small {
+    grid-column: 1 / -1;
+  }
+}
+
 .scroll-cue {
   display: inline-flex;
   flex-direction: column;
@@ -1000,23 +2304,32 @@ p {
   margin: 0;
   text-align: center;
   font-size: clamp(28px, 4vw, 42px);
-  background: linear-gradient(90deg, #8bffc0, #28d873);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--primary);
+  text-shadow: 0 0 40px rgba(0, 255, 153, 0.1);
 }
 
-.card {
-  border: 1px solid rgba(34, 211, 111, 0.28);
-  background: rgba(10, 24, 19, 0.66);
-  box-shadow: inset 0 0 0 1px rgba(93, 255, 158, 0.07);
-  transition: border-color 220ms ease, box-shadow 220ms ease, background-color 220ms ease;
+/* Default cards: subtle lift (projects + achievements override below) */
+.card:hover:not(.achievement-stat) {
+  transform: translateY(-2px);
+  box-shadow:
+    0 12px 36px rgba(0, 0, 0, 0.4),
+    0 0 22px rgba(167, 139, 250, 0.1),
+    0 0 16px rgba(0, 204, 255, 0.06),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  filter: saturate(1.02);
 }
 
-.card:hover {
-  border-color: rgba(120, 247, 175, 0.62);
-  box-shadow: inset 0 0 0 1px rgba(93, 255, 158, 0.12), 0 0 18px rgba(34, 211, 111, 0.22);
-  background: rgba(12, 30, 22, 0.8);
+#projects .projects-grid > article.card.stack:hover,
+#projects .other-projects-grid > article.card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow:
+    0 20px 56px rgba(0, 0, 0, 0.5),
+    0 0 32px rgba(0, 204, 255, 0.14),
+    0 0 40px rgba(167, 139, 250, 0.14),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  filter: saturate(1.04);
 }
 
 .badge {
@@ -1025,9 +2338,9 @@ p {
   width: fit-content;
   padding: 4px 9px;
   border-radius: 999px;
-  background: rgba(34, 211, 111, 0.18);
-  color: var(--ok);
-  border: 1px solid rgba(93, 255, 158, 0.45);
+  background: rgba(167, 139, 250, 0.12);
+  color: #e9e0ff;
+  border: 1px solid rgba(167, 139, 250, 0.4);
   font-size: 13px;
 }
 
@@ -1338,14 +2651,32 @@ p {
       <section id="home" class="page-panel home-landing home-merged">
         <div class="hero-top hero-section hero-viewport">
           <div class="hero-content">
-            <div class="avatar">VK</div>
+            <div class="avatar">
+              <img
+                src="https://drive.google.com/thumbnail?id=1G_MlNxqueiOAcZJru8Q0jNQxnVF3R429&amp;sz=w1200"
+                alt="Vaibhav Kumar"
+                width="240"
+                height="240"
+                decoding="async"
+                fetchpriority="high"
+              />
+            </div>
             <h1 class="hero-name">Vaibhav Kumar</h1>
-            <h2 class="hero-role">Full Stack Developer</h2>
-            <p class="lead">Welcome to my digital portfolio! I build scalable and user-focused web applications using modern technologies and clean design.</p>
-            <div class="skills"><span class="chip">C++ (Major)</span><span class="chip">Java</span><span class="chip">Python</span><span class="chip">C</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">HTML</span><span class="chip">CSS</span></div>
+            <h2 class="hero-role">Building Scalable Web Apps &amp; Solving Complex Problems</h2>
+            <p class="lead">I build scalable web applications and solve real-world problems using modern technologies. Passionate about clean architecture, performance, and impactful products.</p>
+            <div class="skills"><span class="chip chip--primary">C++ (Major)</span><span class="chip">Java</span><span class="chip">Python</span><span class="chip">C</span><span class="chip">JavaScript</span><span class="chip">PHP</span><span class="chip">HTML</span><span class="chip">CSS</span></div>
             <div class="actions">
-              <a href="#projects" class="btn btn-primary">View My Work</a>
-              <a href="#contact" class="btn btn-secondary">Contact Me</a>
+              <a href="#projects" class="btn btn-primary">🚀 View Projects</a>
+              <a href="#contact" class="btn btn-secondary">💼 Hire Me</a>
+            </div>
+            <div class="hero-proof-bar" aria-label="Proof bar">
+              <span class="hero-proof-item"><span class="hero-proof-highlight hero-proof-highlight--green">380+</span> DSA Problems Solved</span>
+              <span class="hero-proof-sep" aria-hidden="true">|</span>
+              <span class="hero-proof-item"><span class="hero-proof-highlight hero-proof-highlight--yellow">5★</span> HackerRank</span>
+              <span class="hero-proof-sep" aria-hidden="true">|</span>
+              <span class="hero-proof-item"><span class="hero-proof-highlight hero-proof-highlight--accent">Top 5K</span> CodeChef</span>
+              <span class="hero-proof-sep" aria-hidden="true">|</span>
+              <span class="hero-proof-item"><span class="hero-proof-highlight hero-proof-highlight--purple">MERN Client</span> Project</span>
             </div>
           </div>
         </div>
@@ -1357,54 +2688,448 @@ p {
                 <h3>Quick Facts</h3>
                 <div class="fact-item"><span class="icon-badge">📍</span><p><strong>Location</strong><br />Bihar, India</p></div>
                 <div class="fact-item"><span class="icon-badge">🎓</span><p><strong>Education</strong><br />Pursuing B.Tech in Computer Science</p></div>
+                <div class="fact-item"><span class="icon-badge">🎯</span><p><strong>Focus</strong><br />Full Stack Development &amp; DSA</p></div>
+                <div class="fact-item"><span class="icon-badge">💼</span><p><strong>Experience</strong><br />Freelance MERN Project (Revenue-Generating)</p></div>
               </article>
               <article class="card stack">
                 <h3>When I'm Not Coding</h3>
-                <ul class="hobby-list"><li><span class="icon-badge">◇</span><span>Exploring new tech</span></li><li><span class="icon-badge">♪</span><span>Music</span></li><li><span class="icon-badge">◆</span><span>Learning new tools</span></li></ul>
+                <ul class="hobby-list">
+                  <li><span class="icon-badge">🚀</span><span>Exploring new technologies &amp; frameworks</span></li>
+                  <li><span class="icon-badge">🎧</span><span>Listening to music while coding</span></li>
+                  <li><span class="icon-badge">📚</span><span>Continuously learning &amp; improving</span></li>
+                </ul>
               </article>
             </aside>
             <div class="right-stack">
-              <article class="card stack"><h3>My Journey</h3><p>I'm a passionate developer focused on building polished and user-friendly web experiences. I enjoy transforming ideas into reliable products while continuously learning and improving my skills.</p></article>
-              <article class="card stack"><h3>My Approach</h3><p>I believe great technology should be practical and human-centered. I focus on clean architecture, thoughtful user experience, and writing scalable, maintainable code.</p></article>
+              <article class="card stack about-narrative-card">
+                <h3 class="about-narrative-title">How I work</h3>
+                <p class="about-narrative-lead">
+                  I'm a passionate full-stack developer focused on building scalable and user-friendly web applications. I enjoy transforming ideas into real-world products while continuously improving my problem-solving and system design skills.
+                </p>
+                <p class="about-narrative-note">
+                  I believe in writing clean, maintainable code and creating practical, human-centered solutions.
+                </p>
+              </article>
             </div>
           </section>
         </div>
         <div class="home-bottom-cue">
-          <a href="#projects" class="scroll-cue scroll-cue--bottom" title="See my projects">
-            <span>See my projects</span>
+          <a href="#projects" class="scroll-cue scroll-cue--bottom" title="Explore My Work">
+            <span>↓ Explore My Work</span>
             <span class="mouse-icon" aria-hidden="true"><span class="mouse-wheel"></span></span>
           </a>
         </div>
       </section>
 
-      <section id="projects" class="page-panel stack" hidden>
+            <section id="projects" class="page-panel stack" hidden>
         <h2 class="section-heading">Projects</h2>
-        <div class="projects-grid"><article class="card stack"><span class="badge">Featured</span><h3>Project One</h3><p>Briefly describe what this project does, what problem it solves, and who it is for.</p><div class="skills"><span class="chip">Full Stack</span><span class="chip">React</span><span class="chip">Node.js</span></div><div class="actions"><a href="https://example.com" target="_blank" rel="noreferrer" class="btn btn-primary">Live Demo</a><a href="https://github.com/your-github/project-one" target="_blank" rel="noreferrer" class="btn btn-secondary">Source Code</a></div></article><article class="card stack"><h3>Project Two</h3><p>Briefly describe this project and highlight one or two technical details that stand out.</p><div class="skills"><span class="chip">Frontend</span><span class="chip">API Integration</span><span class="chip">Tailwind CSS</span></div><div class="actions"><a href="https://example.com" target="_blank" rel="noreferrer" class="btn btn-primary">Live Demo</a><a href="https://github.com/your-github/project-two" target="_blank" rel="noreferrer" class="btn btn-secondary">Source Code</a></div></article><article class="card stack"><span class="badge">Featured</span><h3>Project Three</h3><p>Briefly explain what users can do in this app and why this project matters.</p><div class="skills"><span class="chip">Web App</span><span class="chip">MongoDB</span><span class="chip">Express</span></div><div class="actions"><a href="https://example.com" target="_blank" rel="noreferrer" class="btn btn-primary">Live Demo</a><a href="https://github.com/your-github/project-three" target="_blank" rel="noreferrer" class="btn btn-secondary">Source Code</a></div></article></div>
+        <div class="projects-grid">
+          <article class="card stack project-card project-card--featured">
+            <div class="project-media">
+              <img class="project-hero-img" alt="Revenue-Generating MERN E-Commerce Platform preview" src="https://drive.google.com/thumbnail?id=1_0aF3GeBh8ZIpPjq04gak9aj8azEXoMY&sz=w1200" />
+              <a class="project-media-overlay" href="https://hardware-sanitary-app.vercel.app/" target="_blank" rel="noreferrer">View Project →</a>
+            </div>
+            <div class="project-details">
+              <div class="project-badges" aria-label="Project badges">
+                <span class="badge">Client Project</span>
+                <span class="badge">Production</span>
+                <span class="badge">Revenue</span>
+              </div>
+              <h3>Revenue-Generating MERN E-Commerce Platform</h3>
+              <p>Developed a MERN-based e-commerce platform for a real business, enabling online sales and contributing to revenue generation.</p>
+              <p class="tech-stack-heading">Tech Stack</p>
+              <div class="skills">
+                <span class="chip chip--project-core">React.js</span>
+                <span class="chip chip--project-core">Node.js</span>
+                <span class="chip chip--project-core">Express.js</span>
+                <span class="chip chip--project-core">MongoDB</span>
+                <span class="chip">Tailwind CSS</span>
+                <span class="chip">JWT</span>
+                <span class="chip">Cloudinary</span>
+                <span class="chip">Vercel</span>
+                <span class="chip">Netlify</span>
+              </div>
+              <div class="actions">
+                <a href="https://hardware-sanitary-app.vercel.app/" target="_blank" rel="noreferrer" class="btn btn-primary">🚀 Live Demo</a>
+                <a href="https://github.com/VaibhavKumar22/hardware-sanitary-app" target="_blank" rel="noreferrer" class="btn btn-secondary">💻 View Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card stack project-card">
+            <div class="project-media">
+              <img class="project-hero-img" alt="KhojBazaar - Hyperlocal Marketplace Platform preview" src="https://drive.google.com/thumbnail?id=1bAbr-KzS0ZKIJLrulnd8ycDqzEdvxoKd&sz=w1200" />
+              <a class="project-media-overlay" href="https://github.com/VaibhavKumar22/KhojBazaar" target="_blank" rel="noreferrer">View Code →</a>
+            </div>
+            <div class="project-details">
+              <h3>KhojBazaar - Hyperlocal Marketplace Platform</h3>
+              <p>Built a PHP-MySQL hyperlocal marketplace with geolocation and vendor dashboards to help users discover nearby businesses efficiently.</p>
+              <p class="tech-stack-heading">Tech Stack</p>
+              <div class="skills">
+                <span class="chip chip--project-core">PHP</span>
+                <span class="chip">JavaScript</span>
+                <span class="chip chip--project-core">MySQL</span>
+                <span class="chip">Tailwind CSS</span>
+                <span class="chip">REST APIs</span>
+                <span class="chip">XAMPP</span>
+              </div>
+              <div class="actions">
+                <a href="https://github.com/VaibhavKumar22/KhojBazaar" target="_blank" rel="noreferrer" class="btn btn-secondary">💻 View Code</a>
+              </div>
+            </div>
+          </article>
+
+        </div>
+
+        <h3 class="projects-subheading">Other Projects</h3>
+        <div class="other-projects-grid" aria-label="Other projects">
+          <article class="card stack other-project-card">
+            <div class="project-media">
+              <img class="project-hero-img project-hero-img--contain" alt="N-Queen Visualizer Game preview" src="https://drive.google.com/thumbnail?id=1J9xKHcLcjR8TpYtL8KyXFzXs5vzyiDlp&sz=w1200" />
+              <a class="project-media-overlay" href="https://vaibhavkumar22.github.io/N-Queen-Game/" target="_blank" rel="noreferrer">View Project →</a>
+            </div>
+            <div class="project-details">
+              <div class="project-badges" aria-label="Project badges">
+                <span class="badge">Algorithm Project</span>
+              </div>
+              <h3>N-Queen Visualizer Game</h3>
+              <p>Built an interactive N-Queen visualizer using backtracking to demonstrate algorithmic problem-solving and recursive logic.</p>
+              <p class="tech-stack-heading">Tech Stack</p>
+              <div class="skills">
+                <span class="chip chip--project-core">JavaScript</span>
+                <span class="chip">HTML</span>
+                <span class="chip">CSS</span>
+                <span class="chip">DSA</span>
+                <span class="chip chip--project-core">Backtracking</span>
+              </div>
+              <div class="actions">
+                <a href="https://vaibhavkumar22.github.io/N-Queen-Game/" target="_blank" rel="noreferrer" class="btn btn-primary">🚀 Live Demo</a>
+                <a href="https://github.com/VaibhavKumar22/N-Queen-Game" target="_blank" rel="noreferrer" class="btn btn-secondary">💻 View Code</a>
+              </div>
+            </div>
+          </article>
+
+          <article class="card stack other-project-card">
+            <div class="project-media">
+              <img class="project-hero-img" alt="MediAssist AI - AI-Powered Medical Assistant preview" src="https://drive.google.com/thumbnail?id=1M-nbuPLk1BFE4M_esLvCliFTu98Sh0d5&sz=w1200" />
+              <a class="project-media-overlay" href="https://github.com/VaibhavKumar22/MediAssist-AI" target="_blank" rel="noreferrer">View Code →</a>
+            </div>
+            <div class="project-details">
+              <div class="project-badges" aria-label="Project badges">
+                <span class="badge">AI Project</span>
+              </div>
+              <h3>MediAssist AI - AI-Powered Medical Assistant</h3>
+              <p>Developed an AI-powered medical assistant using FastAPI and NLP to convert symptom input into structured health insights.</p>
+              <p class="tech-stack-heading">Tech Stack</p>
+              <div class="skills">
+                <span class="chip chip--project-core">Python</span>
+                <span class="chip chip--project-core">FastAPI</span>
+                <span class="chip">Gemini API</span>
+                <span class="chip">NLP</span>
+                <span class="chip">JSON</span>
+              </div>
+              <div class="actions">
+                <a href="https://github.com/VaibhavKumar22/MediAssist-AI" target="_blank" rel="noreferrer" class="btn btn-secondary">💻 View Code</a>
+              </div>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section id="skills" class="page-panel skills-section stack" hidden>
-        <h2 class="section-heading">Technical Skills</h2>
-        <p class="lead skills-lead">A collection of technologies and tools I use to build reliable and scalable applications.</p>
-        <div class="skill-filter-row" id="skill-filter-row"><button type="button" class="skill-filter active-filter" data-category="All Skills">All Skills</button><button type="button" class="skill-filter " data-category="Programming Languages">Programming Languages</button><button type="button" class="skill-filter " data-category="Frontend">Frontend</button><button type="button" class="skill-filter " data-category="Backend">Backend</button><button type="button" class="skill-filter " data-category="Databases">Databases</button><button type="button" class="skill-filter " data-category="Tools/Platforms">Tools/Platforms</button></div>
-        <div class="skill-card-grid" id="skill-card-grid"><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#00599C;background:rgba(0, 89, 156, 0.18);border-color:rgba(0, 89, 156, 0.4)"><span class="skill-icon-text">C++</span></span><div class="skill-main"><div class="skill-row"><h4>C++ (Major)</h4><span>90%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:90%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#F89820;background:rgba(248, 152, 32, 0.16);border-color:rgba(248, 152, 32, 0.38)"><span class="skill-icon-text">Ja</span></span><div class="skill-main"><div class="skill-row"><h4>Java</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#FFD43B;background:rgba(255, 212, 59, 0.16);border-color:rgba(255, 212, 59, 0.36)"><span class="skill-icon-text">Py</span></span><div class="skill-main"><div class="skill-row"><h4>Python</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#A8B9CC;background:rgba(168, 185, 204, 0.16);border-color:rgba(168, 185, 204, 0.36)"><span class="skill-icon-text">C</span></span><div class="skill-main"><div class="skill-row"><h4>C</h4><span>78%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:78%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#F7DF1E;background:rgba(247, 223, 30, 0.16);border-color:rgba(247, 223, 30, 0.35)"><span class="skill-icon-text">JS</span></span><div class="skill-main"><div class="skill-row"><h4>JavaScript</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#777BB4;background:rgba(119, 123, 180, 0.18);border-color:rgba(119, 123, 180, 0.38)"><span class="skill-icon-text">PHP</span></span><div class="skill-main"><div class="skill-row"><h4>PHP</h4><span>75%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:75%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#E34F26;background:rgba(227, 79, 38, 0.15);border-color:rgba(227, 79, 38, 0.4)"><span class="skill-icon-text">H5</span></span><div class="skill-main"><div class="skill-row"><h4>HTML</h4><span>92%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:92%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#1572B6;background:rgba(21, 114, 182, 0.16);border-color:rgba(21, 114, 182, 0.4)"><span class="skill-icon-text">CSS</span></span><div class="skill-main"><div class="skill-row"><h4>CSS</h4><span>90%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:90%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#61DAFB;background:rgba(97, 218, 251, 0.16);border-color:rgba(97, 218, 251, 0.4)"><span class="skill-icon-text">Rx</span></span><div class="skill-main"><div class="skill-row"><h4>React.js</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#06B6D4;background:rgba(6, 182, 212, 0.16);border-color:rgba(6, 182, 212, 0.4)"><span class="skill-icon-text">TW</span></span><div class="skill-main"><div class="skill-row"><h4>Tailwind CSS</h4><span>86%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:86%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#7952B3;background:rgba(121, 82, 179, 0.16);border-color:rgba(121, 82, 179, 0.4)"><span class="skill-icon-text">BS</span></span><div class="skill-main"><div class="skill-row"><h4>Bootstrap</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#68A063;background:rgba(104, 160, 99, 0.16);border-color:rgba(104, 160, 99, 0.38)"><span class="skill-icon-text">N</span></span><div class="skill-main"><div class="skill-row"><h4>Node.js</h4><span>83%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:83%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#EDEDED;background:rgba(237, 237, 237, 0.12);border-color:rgba(237, 237, 237, 0.32)"><span class="skill-icon-text">Ex</span></span><div class="skill-main"><div class="skill-row"><h4>Express.js</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#5EEAD4;background:rgba(94, 234, 212, 0.16);border-color:rgba(94, 234, 212, 0.35)"><span class="skill-icon-text">API</span></span><div class="skill-main"><div class="skill-row"><h4>REST API Integration</h4><span>85%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:85%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#38BDF8;background:rgba(56, 189, 248, 0.16);border-color:rgba(56, 189, 248, 0.35)"><span class="skill-icon-text">Au</span></span><div class="skill-main"><div class="skill-row"><h4>Authentication</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#A78BFA;background:rgba(167, 139, 250, 0.16);border-color:rgba(167, 139, 250, 0.35)"><span class="skill-icon-text">RB</span></span><div class="skill-main"><div class="skill-row"><h4>RBAC</h4><span>78%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:78%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#777BB4;background:rgba(119, 123, 180, 0.18);border-color:rgba(119, 123, 180, 0.38)"><span class="skill-icon-text">PH</span></span><div class="skill-main"><div class="skill-row"><h4>PHP (Backend)</h4><span>75%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:75%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#00758F;background:rgba(0, 117, 143, 0.16);border-color:rgba(0, 117, 143, 0.35)"><span class="skill-icon-text">SQL</span></span><div class="skill-main"><div class="skill-row"><h4>MySQL</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#47A248;background:rgba(71, 162, 72, 0.16);border-color:rgba(71, 162, 72, 0.38)"><span class="skill-icon-text">M</span></span><div class="skill-main"><div class="skill-row"><h4>MongoDB</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#336791;background:rgba(51, 103, 145, 0.16);border-color:rgba(51, 103, 145, 0.35)"><span class="skill-icon-text">Pg</span></span><div class="skill-main"><div class="skill-row"><h4>PostgreSQL</h4><span>79%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:79%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#F05032;background:rgba(240, 80, 50, 0.16);border-color:rgba(240, 80, 50, 0.4)"><span class="skill-icon-text">Git</span></span><div class="skill-main"><div class="skill-row"><h4>Git</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#E8E8E8;background:rgba(232, 232, 232, 0.12);border-color:rgba(232, 232, 232, 0.3)"><span class="skill-icon-text">GH</span></span><div class="skill-main"><div class="skill-row"><h4>GitHub</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#FB7A24;background:rgba(251, 122, 36, 0.16);border-color:rgba(251, 122, 36, 0.36)"><span class="skill-icon-text">X</span></span><div class="skill-main"><div class="skill-row"><h4>XAMPP</h4><span>74%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:74%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#3448C5;background:rgba(52, 72, 197, 0.16);border-color:rgba(52, 72, 197, 0.35)"><span class="skill-icon-text">Cld</span></span><div class="skill-main"><div class="skill-row"><h4>Cloudinary</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#EDEDED;background:rgba(237, 237, 237, 0.12);border-color:rgba(237, 237, 237, 0.32)"><span class="skill-icon-text">▲</span></span><div class="skill-main"><div class="skill-row"><h4>Vercel</h4><span>86%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:86%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#00C7B7;background:rgba(0, 199, 183, 0.16);border-color:rgba(0, 199, 183, 0.35)"><span class="skill-icon-text">N</span></span><div class="skill-main"><div class="skill-row"><h4>Netlify</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#007ACC;background:rgba(0, 122, 204, 0.16);border-color:rgba(0, 122, 204, 0.35)"><span class="skill-icon-text">VS</span></span><div class="skill-main"><div class="skill-row"><h4>VS Code</h4><span>92%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:92%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#FF6C37;background:rgba(255, 108, 55, 0.16);border-color:rgba(255, 108, 55, 0.35)"><span class="skill-icon-text">Pm</span></span><div class="skill-main"><div class="skill-row"><h4>Postman</h4><span>87%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:87%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article></div>
-        <article class="card stack learning-journey-section">
-          <h3>Learning Journey</h3>
-          <p class="lead">My technical skill set is constantly evolving as I explore new tools and frameworks to expand my development capabilities. Currently learning and experimenting with:</p>
-          <div class="learning-tags">
-            <span class="chip">Spring Boot</span><span class="chip">TypeScript</span><span class="chip">Next.js</span><span class="chip">Laravel</span><span class="chip">Angular</span>
+        <h2 class="section-heading">Tech Stack</h2>
+        <p class="lead skills-lead">Technologies I use to build scalable, reliable products.</p>
+        <div class="core-stack-row" aria-label="Core Stack">
+          <div class="core-stack-title">Core Stack</div>
+          <div class="core-stack-chips">
+            <span class="chip chip--core">React.js</span>
+            <span class="chip chip--core">Node.js</span>
+            <span class="chip chip--core">MongoDB</span>
+            <span class="chip chip--core">Express</span>
+            <span class="chip chip--core chip--core-primary">C++</span>
           </div>
+        </div>
+        <div class="skill-filter-row" id="skill-filter-row"><button type="button" class="skill-filter active-filter" data-category="All Skills">All Skills</button><button type="button" class="skill-filter " data-category="Programming Languages">Programming Languages</button><button type="button" class="skill-filter " data-category="Frontend">Frontend</button><button type="button" class="skill-filter " data-category="Backend">Backend</button><button type="button" class="skill-filter " data-category="Databases">Databases</button><button type="button" class="skill-filter " data-category="Tools/Platforms">Tools/Platforms</button></div>
+        <div class="skill-card-grid" id="skill-card-grid"><article class="skill-card skill-card--primary" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#00599C;background:rgba(0, 89, 156, 0.18);border-color:rgba(0, 89, 156, 0.4)"><span class="skill-icon-text">C++</span></span><div class="skill-main"><div class="skill-row"><h4>C++ (Major) — DSA & Competitive Programming</h4><span>90%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:90%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#F89820;background:rgba(248, 152, 32, 0.16);border-color:rgba(248, 152, 32, 0.38)"><span class="skill-icon-text">Ja</span></span><div class="skill-main"><div class="skill-row"><h4>Java — OOP & Backend Development</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#FFD43B;background:rgba(255, 212, 59, 0.16);border-color:rgba(255, 212, 59, 0.36)"><span class="skill-icon-text">Py</span></span><div class="skill-main"><div class="skill-row"><h4>Python — APIs & Automation</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#A8B9CC;background:rgba(168, 185, 204, 0.16);border-color:rgba(168, 185, 204, 0.36)"><span class="skill-icon-text">C</span></span><div class="skill-main"><div class="skill-row"><h4>C — Systems Coding & Problem Solving</h4><span>78%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:78%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#F7DF1E;background:rgba(247, 223, 30, 0.16);border-color:rgba(247, 223, 30, 0.35)"><span class="skill-icon-text">JS</span></span><div class="skill-main"><div class="skill-row"><h4>JavaScript — Full-Stack & Async UI</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#777BB4;background:rgba(119, 123, 180, 0.18);border-color:rgba(119, 123, 180, 0.38)"><span class="skill-icon-text">PHP</span></span><div class="skill-main"><div class="skill-row"><h4>PHP — Server-Side Web Development</h4><span>75%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:75%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#E34F26;background:rgba(227, 79, 38, 0.15);border-color:rgba(227, 79, 38, 0.4)"><span class="skill-icon-text">H5</span></span><div class="skill-main"><div class="skill-row"><h4>HTML — Semantic UI & Accessibility</h4><span>92%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:92%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Programming Languages"><div class="skill-card-head"><span class="skill-icon" style="color:#1572B6;background:rgba(21, 114, 182, 0.16);border-color:rgba(21, 114, 182, 0.4)"><span class="skill-icon-text">CSS</span></span><div class="skill-main"><div class="skill-row"><h4>CSS — Responsive Design & Styling</h4><span>90%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:90%"></div></div></div></div><p class="skill-category">Programming Languages</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#61DAFB;background:rgba(97, 218, 251, 0.16);border-color:rgba(97, 218, 251, 0.4)"><span class="skill-icon-text">Rx</span></span><div class="skill-main"><div class="skill-row"><h4>React.js — Component-Driven UIs</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#06B6D4;background:rgba(6, 182, 212, 0.16);border-color:rgba(6, 182, 212, 0.4)"><span class="skill-icon-text">TW</span></span><div class="skill-main"><div class="skill-row"><h4>Tailwind CSS — Utility-First Styling</h4><span>86%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:86%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Frontend"><div class="skill-card-head"><span class="skill-icon" style="color:#7952B3;background:rgba(121, 82, 179, 0.16);border-color:rgba(121, 82, 179, 0.4)"><span class="skill-icon-text">BS</span></span><div class="skill-main"><div class="skill-row"><h4>Bootstrap — Rapid UI Prototyping</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Frontend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#68A063;background:rgba(104, 160, 99, 0.16);border-color:rgba(104, 160, 99, 0.38)"><span class="skill-icon-text">N</span></span><div class="skill-main"><div class="skill-row"><h4>Node.js — Scalable Backend Services</h4><span>83%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:83%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#EDEDED;background:rgba(237, 237, 237, 0.12);border-color:rgba(237, 237, 237, 0.32)"><span class="skill-icon-text">Ex</span></span><div class="skill-main"><div class="skill-row"><h4>Express.js — REST APIs & Middleware</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#5EEAD4;background:rgba(94, 234, 212, 0.16);border-color:rgba(94, 234, 212, 0.35)"><span class="skill-icon-text">API</span></span><div class="skill-main"><div class="skill-row"><h4>REST API Integration — API Design & Data Sync</h4><span>85%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:85%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#38BDF8;background:rgba(56, 189, 248, 0.16);border-color:rgba(56, 189, 248, 0.35)"><span class="skill-icon-text">Au</span></span><div class="skill-main"><div class="skill-row"><h4>Authentication — Token-Based Access Control</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#A78BFA;background:rgba(167, 139, 250, 0.16);border-color:rgba(167, 139, 250, 0.35)"><span class="skill-icon-text">RB</span></span><div class="skill-main"><div class="skill-row"><h4>RBAC — Role-Based Authorization</h4><span>78%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:78%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Backend"><div class="skill-card-head"><span class="skill-icon" style="color:#777BB4;background:rgba(119, 123, 180, 0.18);border-color:rgba(119, 123, 180, 0.38)"><span class="skill-icon-text">PH</span></span><div class="skill-main"><div class="skill-row"><h4>PHP (Backend) — PHP REST Services</h4><span>75%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:75%"></div></div></div></div><p class="skill-category">Backend</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#00758F;background:rgba(0, 117, 143, 0.16);border-color:rgba(0, 117, 143, 0.35)"><span class="skill-icon-text">SQL</span></span><div class="skill-main"><div class="skill-row"><h4>MySQL — Relational Schema & Queries</h4><span>82%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:82%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#47A248;background:rgba(71, 162, 72, 0.16);border-color:rgba(71, 162, 72, 0.38)"><span class="skill-icon-text">M</span></span><div class="skill-main"><div class="skill-row"><h4>MongoDB — Document Modeling & CRUD</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Databases"><div class="skill-card-head"><span class="skill-icon" style="color:#336791;background:rgba(51, 103, 145, 0.16);border-color:rgba(51, 103, 145, 0.35)"><span class="skill-icon-text">Pg</span></span><div class="skill-main"><div class="skill-row"><h4>PostgreSQL — Advanced SQL & Reporting</h4><span>79%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:79%"></div></div></div></div><p class="skill-category">Databases</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#F05032;background:rgba(240, 80, 50, 0.16);border-color:rgba(240, 80, 50, 0.4)"><span class="skill-icon-text">Git</span></span><div class="skill-main"><div class="skill-row"><h4>Git — Version Control Workflows</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#E8E8E8;background:rgba(232, 232, 232, 0.12);border-color:rgba(232, 232, 232, 0.3)"><span class="skill-icon-text">GH</span></span><div class="skill-main"><div class="skill-row"><h4>GitHub — Collaboration & CI Basics</h4><span>88%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:88%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#FB7A24;background:rgba(251, 122, 36, 0.16);border-color:rgba(251, 122, 36, 0.36)"><span class="skill-icon-text">X</span></span><div class="skill-main"><div class="skill-row"><h4>XAMPP — Local Dev & Testing</h4><span>74%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:74%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#3448C5;background:rgba(52, 72, 197, 0.16);border-color:rgba(52, 72, 197, 0.35)"><span class="skill-icon-text">Cld</span></span><div class="skill-main"><div class="skill-row"><h4>Cloudinary — Media Uploads & Optimization</h4><span>80%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:80%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#EDEDED;background:rgba(237, 237, 237, 0.12);border-color:rgba(237, 237, 237, 0.32)"><span class="skill-icon-text">▲</span></span><div class="skill-main"><div class="skill-row"><h4>Vercel — Deployment & Preview Workflows</h4><span>86%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:86%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#00C7B7;background:rgba(0, 199, 183, 0.16);border-color:rgba(0, 199, 183, 0.35)"><span class="skill-icon-text">N</span></span><div class="skill-main"><div class="skill-row"><h4>Netlify — Hosting & Frontend Builds</h4><span>84%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:84%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#007ACC;background:rgba(0, 122, 204, 0.16);border-color:rgba(0, 122, 204, 0.35)"><span class="skill-icon-text">VS</span></span><div class="skill-main"><div class="skill-row"><h4>VS Code — Developer Productivity</h4><span>92%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:92%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article><article class="skill-card" data-category="Tools/Platforms"><div class="skill-card-head"><span class="skill-icon" style="color:#FF6C37;background:rgba(255, 108, 55, 0.16);border-color:rgba(255, 108, 55, 0.35)"><span class="skill-icon-text">Pm</span></span><div class="skill-main"><div class="skill-row"><h4>Postman — API Testing & Collections</h4><span>87%</span></div><div class="skill-meter"><div class="skill-meter-fill" style="width:87%"></div></div></div></div><p class="skill-category">Tools/Platforms</p></article></div>
+        <article class="card stack learning-journey-section">
+          <h3>Learning Focus</h3>
+          <p class="lead">I continuously explore new technologies to expand my development capabilities. Currently focusing on:</p>
+          <div class="learning-tags">
+            <span class="chip">Backend Expansion</span>
+            <span class="chip">Type Safety</span>
+            <span class="chip">Advanced Frontend</span>
+            <span class="chip">Full-Stack MVC</span>
+            <span class="chip">Enterprise UI</span>
+          </div>
+        </article>
+
+        <article class="card stack skills-proof-section">
+          <h3>Proof of Skill</h3>
+          <ul class="hobby-list skills-proof-list">
+            <li><span class="icon-badge">✔</span><span>380+ DSA Problems Solved</span></li>
+            <li><span class="icon-badge">✔</span><span>5★ HackerRank (C++ &amp; Problem Solving)</span></li>
+            <li><span class="icon-badge">✔</span><span>MERN Client Project Delivered</span></li>
+          </ul>
         </article>
       </section>
 
       <section id="certifications" class="page-panel stack" hidden>
-        <h2 class="section-heading">Certifications</h2>
-        <p class="lead" style="text-align:center;max-width:720px;margin:0 auto 16px;">A record of certifications I have earned across development and problem solving.</p>
-        <div class="projects-grid"><a href="https://drive.google.com/file/d/1FSUx7mxcP4GMxYFVkBGNYAOJkEdEWByZ/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">13/3/2026</p></div><h3>Privacy and Security in Online Social Media</h3><p class="cert-issuer">NPTEL</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1UTlujLhM7VR9EopnrLSbLj4BWKPK5fY4/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">12/3/2026</p></div><h3>PEP VAIBHAV</h3><p class="cert-issuer">PEP</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1b0pQOtdQTUJ2ZpBY3A42Xlim1fKuvgGH/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">11/3/2026</p></div><h3>Communication in the 21st Century Workplace</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1z624GR7L8yEVyYccbTiQdGBKmsUFIUIH/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">10/3/2026</p></div><h3>Full Stack Web Development with Laravel</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1kB7sQ8x1n0IP0_QnuIYRpTefNuuwmRyA/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">9/3/2026</p></div><h3>TCP/IP and Advanced Topics</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1mnjaY7LXaRGHq0MzDAS_P5ueS-aEOn0s/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">8/3/2026</p></div><h3>Introduction to Hardware and Operating Systems</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1hyN9MNFLemlG-vbi_kysN2aRDMJndpop/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">7/3/2026</p></div><h3>Packet Switching Networks and Algorithms</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1OgEfiLNd57LIuTNvxw-XFzHIfRkv4HeW/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">6/3/2026</p></div><h3>Fundamentals of Network Communication</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1MtmB4p8e0K40fIlSdXxaZ6O9ZcnMe_CN/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">5/3/2026</p></div><h3>The Bits and Bytes of Computer Networking</h3><p class="cert-issuer">Google / Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1AZtAKBe4EbaPpd5R1P5kimYjdB3MNlig/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">4/3/2026</p></div><h3>C++</h3><p class="cert-issuer">Skill Up</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1HJepO7Dcged7nwDbPfvCgoTv8PCetizO/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">3/3/2026</p></div><h3>Full Stack Web Development - Skill Up4</h3><p class="cert-issuer">Skill Up4</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1ihpDtRr9TrBfY5uXb7Ua388hHQqBhVui/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">2/3/2026</p></div><h3>MongoDB Developer's Toolkit CRUD Mastery with Node.js Java Python C#</h3><p class="cert-issuer">Udemy</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1ATW-QfodqWMOowAKEBN4OdMm5md8VF_p/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">1/3/2026</p></div><h3>Python</h3><p class="cert-issuer">Skill Up</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1xFFtzTj20Oj3BnUza6x_NyE56hvBnaYf/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">28/2/2026</p></div><h3>Problem Solving Basic - HackerRank</h3><p class="cert-issuer">HackerRank</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1qH98Ruso54L69P5I2SM56o6PCDElU9f7/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">27/2/2026</p></div><h3>Problem Solving Intermediate - HackerRank</h3><p class="cert-issuer">HackerRank</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/17qXVrP8S_mitTQEeRqwy6CRTZdWLfV7Q/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">26/2/2026</p></div><h3>SQL (Basic) - HackerRank</h3><p class="cert-issuer">HackerRank</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1LcqPmuK1Zi5aW2CdHBwT19rDwD1CrIy-/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">25/2/2026</p></div><h3>SQL (Intermediate) - HackerRank</h3><p class="cert-issuer">HackerRank</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1436fsai3p_a4h7L1UGL-WZjVr-GBI7Zw/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">24/2/2026</p></div><h3>Build Generative AI Apps and Solutions with No-Code Tools</h3><p class="cert-issuer">Coursera</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1j4GiGCSTC-A5J9j49meVlI-5P7J49qB6/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">23/2/2026</p></div><h3>Master Generative AI and Generative AI Tools (ChatGPT and more)</h3><p class="cert-issuer">Udemy</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1w4pAf97YoRKTlYuqabe4AXiPJQgpgrdo/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">22/2/2026</p></div><h3>ChatGPT-4 Prompt Engineering, Generative AI and LLM</h3><p class="cert-issuer">Wingspan</p><div class="btn btn-secondary">View Credential</div></article></a><a href="https://drive.google.com/file/d/1LUtsBkEf6Sf2IhvByrxDGHZeORmPhezk/view?usp=sharing" target="_blank" rel="noreferrer" class="cert-card-link"><article class="card stack certification-card"><div class="cert-top-row"><p class="cert-date">21/2/2026</p></div><h3>Computational Theory Language Principle and Finite Automata Theory</h3><p class="cert-issuer">NPTEL</p><div class="btn btn-secondary">View Credential</div></article></a></div>
+        <h2 class="section-heading">Certifications &amp; Credentials</h2>
+        <p class="lead cert-section-lead">Certifications demonstrating expertise in full-stack development, backend systems, problem-solving, and modern web technologies.</p>
+        <div class="cert-flip-grid">
+          <article class="cert-flip-card cert-flip-card--featured" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1z624GR7L8yEVyYccbTiQdGBKmsUFIUIH&sz=w800" alt="Full Stack Development (Laravel) certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge cert-badge--featured">Featured</span>
+                  <span class="badge">Verified</span>
+                  <span class="badge">Coursera</span>
+                </div>
+                <h3>Full Stack Development (Laravel)</h3>
+                <div class="cert-front-meta"><span>Coursera</span><span>January 2026</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Builds practical full-stack skills with Laravel, including backend APIs, authentication, and MVC-based application development.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">Laravel</span><span class="chip">PHP</span><span class="chip">MVC</span></div>
+                  <a href="https://drive.google.com/file/d/1z624GR7L8yEVyYccbTiQdGBKmsUFIUIH/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-flip-card cert-flip-card--span-4" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1ihpDtRr9TrBfY5uXb7Ua388hHQqBhVui&sz=w800" alt="MongoDB CRUD Mastery certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge cert-badge--featured">Featured</span>
+                  <span class="badge">Verified</span>
+                  <span class="badge">Udemy</span>
+                </div>
+                <h3>MongoDB CRUD Mastery</h3>
+                <div class="cert-front-meta"><span>Udemy</span><span>December 2025</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Strengthens MongoDB CRUD operations, schema design, and query handling for real-world backend data workflows.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">MongoDB</span><span class="chip">CRUD</span><span class="chip">Schema Design</span></div>
+                  <a href="https://drive.google.com/file/d/1ihpDtRr9TrBfY5uXb7Ua388hHQqBhVui/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-flip-card cert-flip-card--span-4" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1FSUx7mxcP4GMxYFVkBGNYAOJkEdEWByZ&sz=w800" alt="Privacy and Security in Online Social Media certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge">Verified</span>
+                  <span class="badge">NPTEL</span>
+                  <span class="badge">Security</span>
+                </div>
+                <h3>Privacy &amp; Security (Social Media)</h3>
+                <div class="cert-front-meta"><span>NPTEL</span><span>April 2025</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Covers social media privacy, secure digital behavior, and key online safety practices for responsible internet use.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">Privacy</span><span class="chip">Security</span><span class="chip">Social Media</span></div>
+                  <a href="https://drive.google.com/file/d/1FSUx7mxcP4GMxYFVkBGNYAOJkEdEWByZ/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-flip-card cert-flip-card--span-4" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1MtmB4p8e0K40fIlSdXxaZ6O9ZcnMe_CN&sz=w800" alt="Computer Networking certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge">Verified</span>
+                  <span class="badge">Google</span>
+                </div>
+                <h3>Computer Networking (Google)</h3>
+                <div class="cert-front-meta"><span>Google / Coursera</span><span>August 2025</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Explains core networking concepts, protocols, routing, and troubleshooting foundations for modern internet systems.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">Networking</span><span class="chip">Protocols</span><span class="chip">Troubleshooting</span></div>
+                  <a href="https://drive.google.com/file/d/1MtmB4p8e0K40fIlSdXxaZ6O9ZcnMe_CN/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-flip-card cert-flip-card--span-6" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1LcqPmuK1Zi5aW2CdHBwT19rDwD1CrIy-&sz=w800" alt="SQL Intermediate HackerRank certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge cert-badge--featured">Featured</span>
+                  <span class="badge">Verified</span>
+                  <span class="badge">HackerRank</span>
+                  <span class="badge">SQL</span>
+                </div>
+                <h3>SQL Intermediate (HackerRank)</h3>
+                <div class="cert-front-meta"><span>HackerRank</span><span>July 2025</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Validates intermediate SQL proficiency with joins, subqueries, aggregations, and performance-aware query logic.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">SQL</span><span class="chip">Subqueries</span><span class="chip">Joins</span></div>
+                  <a href="https://drive.google.com/file/d/1LcqPmuK1Zi5aW2CdHBwT19rDwD1CrIy-/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="cert-flip-card cert-flip-card--span-6" tabindex="0">
+            <div class="cert-split">
+              <div class="cert-visual"><img src="https://drive.google.com/thumbnail?id=1qH98Ruso54L69P5I2SM56o6PCDElU9f7&sz=w800" alt="Problem Solving Intermediate HackerRank certificate preview" /></div>
+              <div class="cert-info">
+                <div class="cert-front-badges" aria-label="Credential badges">
+                  <span class="badge cert-badge--featured">Featured</span>
+                  <span class="badge">Verified</span>
+                  <span class="badge">HackerRank</span>
+                </div>
+                <h3>Problem Solving (Intermediate)</h3>
+                <div class="cert-front-meta"><span>HackerRank</span><span>July 2025</span></div>
+                <div class="cert-hover-meta">
+                  <p class="cert-back-summary">Demonstrates intermediate algorithmic thinking and efficient coding strategies for structured problem-solving tasks.</p>
+                  <p class="cert-meta-row"><span class="cert-meta-label">Skills:</span></p>
+                  <div class="cert-skill-tags"><span class="chip">Problem Solving</span><span class="chip">Algorithms</span><span class="chip">Data Structures</span></div>
+                  <a href="https://drive.google.com/file/d/1qH98Ruso54L69P5I2SM56o6PCDElU9f7/view?usp=sharing" target="_blank" rel="noreferrer" class="btn btn-secondary">🔗 View Credential</a>
+                </div>
+              </div>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section id="achievements" class="page-panel stack" hidden>
-        <h2 class="section-heading">Achievements</h2>
-        <article class="card"><ul class="hobby-list"><li><span class="icon-badge">★</span><span>Solved 300+ coding problems across platforms.</span></li><li><span class="icon-badge">★</span><span>Built and deployed multiple full-stack projects.</span></li><li><span class="icon-badge">★</span><span>Actively learning system design and cloud services.</span></li></ul></article>
+        <h2 class="section-heading">Key Achievements</h2>
+        <div class="achievements-grid">
+          <article class="card achievement-stat achievement-stat--hero reveal-up" data-reveal>
+            <div class="achievement-stat-head">
+              <span class="achievement-stat-icon achievement-icon--revenue" aria-hidden="true">
+                <svg class="achievement-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M4 19h16" />
+                  <path d="M6 16V10" />
+                  <path d="M10 16V6" />
+                  <path d="M14 16V13" />
+                  <path d="M18 16V8" />
+                </svg>
+              </span>
+              <h3 class="achievement-stat-title">
+                <span class="achievement-number achievement-number--accent">Revenue</span>-Generating MERN Project
+              </h3>
+            </div>
+            <p class="achievement-stat-body">
+              Delivered a MERN-based application enabling real-world revenue generation and business operations.
+            </p>
+            <div class="achievement-tags" aria-label="Achievement tags">
+              <span class="achievement-tag">MERN</span>
+              <span class="achievement-tag">Client Project</span>
+              <span class="achievement-tag">Revenue</span>
+            </div>
+          </article>
+
+          <article class="card achievement-stat achievement-stat--small reveal-up" data-reveal>
+            <div class="achievement-stat-head">
+              <span class="achievement-stat-icon achievement-icon--dsa" aria-hidden="true">
+                <svg class="achievement-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M9 18c-2 0-3-1.5-3-3.5S7 11 7 11" />
+                  <path d="M15 18c2 0 3-1.5 3-3.5S17 11 17 11" />
+                  <path d="M9.5 22c-1.8 0-3.5-1.2-3.5-3v-1c0-1.1.6-2 1.5-2.5" />
+                  <path d="M14.5 22c1.8 0 3.5-1.2 3.5-3v-1c0-1.1-.6-2-1.5-2.5" />
+                  <path d="M12 2c3.5 0 6 2.2 6 5.5 0 1.2-.4 2.2-1 3.1-.6.9-1 1.6-1 2.4V15c0 1.7-1.3 3-3 3h-2c-1.7 0-3-1.3-3-3v-2c0-.8-.4-1.5-1-2.4-.6-.9-1-1.9-1-3.1C6 4.2 8.5 2 12 2Z" />
+                </svg>
+              </span>
+              <h3 class="achievement-stat-title">
+                <span class="achievement-number achievement-number--green">380+</span> Optimized DSA Solutions
+              </h3>
+            </div>
+            <p class="achievement-stat-body">
+              Solved 380+ DSA problems with a focus on optimized time and space complexity.
+            </p>
+            <div class="achievement-tags" aria-label="Achievement tags">
+              <span class="achievement-tag">DSA</span>
+              <span class="achievement-tag">Optimized</span>
+              <span class="achievement-tag">Competitive Coding</span>
+            </div>
+          </article>
+
+          <article class="card achievement-stat achievement-stat--small reveal-up" data-reveal>
+            <div class="achievement-stat-head">
+              <span class="achievement-stat-icon achievement-icon--hkr" aria-hidden="true">
+                <svg class="achievement-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 2l3 7 7 1-5 5 1 7-6-3-6 3 1-7-5-5 7-1 3-7z" />
+                </svg>
+              </span>
+              <h3 class="achievement-stat-title">
+                <span class="achievement-number achievement-number--yellow">5★</span> HackerRank Achievements
+              </h3>
+            </div>
+            <p class="achievement-stat-body">
+              Achieved 5★ ratings in C++ and Problem Solving on HackerRank, demonstrating strong coding proficiency.
+            </p>
+            <div class="achievement-tags" aria-label="Achievement tags">
+              <span class="achievement-tag">HackerRank</span>
+              <span class="achievement-tag">C++</span>
+              <span class="achievement-tag">Problem Solving</span>
+            </div>
+          </article>
+
+          <article class="card achievement-stat achievement-stat--small reveal-up" data-reveal>
+            <div class="achievement-stat-head">
+              <span class="achievement-stat-icon achievement-icon--rank" aria-hidden="true">
+                <svg class="achievement-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M8 21h8" />
+                  <path d="M12 17v4" />
+                  <path d="M7 4h10v6a5 5 0 0 1-10 0V4z" />
+                  <path d="M7 10H5a2 2 0 0 1-2-2V6h4" />
+                  <path d="M17 10h2a2 2 0 0 0 2-2V6h-4" />
+                </svg>
+              </span>
+              <h3 class="achievement-stat-title">
+                <span class="achievement-number achievement-number--accent">Top 5K</span> CodeChef Rank
+              </h3>
+            </div>
+            <p class="achievement-stat-body">
+              Secured a global rank of ~4,600 in a CodeChef rated contest (1051+ rating).
+            </p>
+            <div class="achievement-tags" aria-label="Achievement tags">
+              <span class="achievement-tag">CodeChef</span>
+              <span class="achievement-tag">Rated Contest</span>
+              <span class="achievement-tag">Competitive Programming</span>
+            </div>
+          </article>
+
+          <article class="card achievement-stat achievement-stat--small reveal-up" data-reveal>
+            <div class="achievement-stat-head">
+              <span class="achievement-stat-icon achievement-icon--systems" aria-hidden="true">
+                <svg class="achievement-icon-svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z" />
+                  <path d="M19.4 15a1.8 1.8 0 0 0 .4 2l.1.1-1.9 3.3-0.2-.1a2 2 0 0 0-2.2.2l-.1.1-3.6-2.1.1-.2a2 2 0 0 0-.4-2.1l-.1-.1-3.9.1V13h.2a2 2 0 0 0 1.9-1.4l.1-.2-2.1-3.6.1-.1a2 2 0 0 0-.2-2.2l-.1-.2L6 1.9l.1.1a1.8 1.8 0 0 0 2 .4l.2.1 2.1-3.6h2.2l2.1 3.6.2-.1a1.8 1.8 0 0 0 2-.4l.1-.1 3.3 1.9-.1.2a2 2 0 0 0 .2 2.2l.1.1-2.1 3.6.1.2A2 2 0 0 0 22 13v1.9l-3.9-.1-.1.1a2 2 0 0 0-.4 2.1l.1.2-3.6 2.1-.1-.1a2 2 0 0 0-2.2-.2l-.2.1-1.9-3.3.1-.1a1.8 1.8 0 0 0 .4-2" opacity="0.18"/>
+                  <path d="M12 2v2" />
+                  <path d="M4 7h2" />
+                  <path d="M18 7h2" />
+                  <path d="M4 17h2" />
+                  <path d="M18 17h2" />
+                  <path d="M12 20v2" />
+                </svg>
+              </span>
+              <h3 class="achievement-stat-title">Real-World System Development</h3>
+            </div>
+            <p class="achievement-stat-body">
+              Built real-world systems implementing authentication, REST APIs, and database architecture.
+            </p>
+            <div class="achievement-tags" aria-label="Achievement tags">
+              <span class="achievement-tag">Auth</span>
+              <span class="achievement-tag">REST APIs</span>
+              <span class="achievement-tag">Database</span>
+            </div>
+          </article>
+        </div>
       </section>
 
       <section id="resume" class="page-panel stack" hidden>
@@ -1419,107 +3144,138 @@ p {
       </section>
 
       <section id="contact" class="page-panel stack" hidden>
-        <h2 class="section-heading">Get In Touch</h2>
-        <p class="lead" style="text-align:center;max-width:640px;margin:0 auto 20px;">Have a question or want to work together? Fill out the form or tap the icons below.</p>
-        <div class="contact-page-stack">
-          <article class="card stack contact-form-card">
-            <h3>Send a Message</h3>
-            <form class="contact-form" action="https://formsubmit.co/vaibjais123456@gmail.com" method="POST" id="contact-form">
-              <input type="hidden" name="_subject" value="Portfolio contact — Vaibhav Kumar" />
-              <input type="hidden" name="_captcha" value="false" />
-              <input type="hidden" name="_template" value="table" />
-              <input type="hidden" name="_next" id="formNextUrl" value="" />
-              <div class="form-field">
-                <label for="contact-name">Name *</label>
-                <input
-                  id="contact-name"
-                  name="name"
-                  type="text"
-                  required
-                  maxlength="120"
-                  autocomplete="name"
-                  title="At least 2 characters (not only spaces)."
-                />
-              </div>
-              <div class="form-field">
-                <label for="contact-email">Email *</label>
-                <input
-                  id="contact-email"
-                  name="email"
-                  type="email"
-                  required
-                  maxlength="254"
-                  autocomplete="email"
-                  inputmode="email"
-                  title="Enter a valid email address (e.g. name@example.com)."
-                />
-              </div>
-              <div class="form-field">
-                <label for="contact-subject">Subject *</label>
-                <input id="contact-subject" name="subject" type="text" required />
-              </div>
-              <div class="form-field">
-                <label for="contact-message">Message *</label>
-                <textarea id="contact-message" name="message" rows="5" required></textarea>
-              </div>
-              <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
-          </article>
+        <h2 class="section-heading">Let's Work Together</h2>
+        <p class="lead" style="text-align:center;max-width:720px;margin:0 auto 12px;">
+          Open to opportunities, collaborations, and freelance projects. Let's build something impactful together.
+        </p>
+        <p class="contact-quick-cta">
+          Prefer direct contact? <a href="mailto:vaibjais123456@gmail.com">Email me at vaibjais123456@gmail.com</a>
+        </p>
 
-          <div class="contact-info-card">
-            <h3 class="contact-info-title">Contact Information</h3>
-            <div class="contact-icon-row" role="list">
-              <a
-                class="contact-icon-link contact-icon-link--email"
-                role="listitem"
-                href="mailto:vaibjais123456@gmail.com"
-                aria-label="Email vaibjais123456@gmail.com"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#e53935"
-                    d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
-                  />
-                </svg>
-              </a>
-              <a class="contact-icon-link contact-icon-link--phone" role="listitem" href="tel:+918873465131" aria-label="Call +91 88734 65131">
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#25d366"
-                    d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.21z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="contact-icon-link contact-icon-link--linkedin"
-                role="listitem"
-                href="https://www.linkedin.com/in/vaibhavkumar-/"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn profile"
-              >
-                <svg viewBox="0 0 24 24" fill="#fff" aria-hidden="true">
-                  <path
-                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
-                  />
-                </svg>
-              </a>
-              <a
-                class="contact-icon-link contact-icon-link--github"
-                role="listitem"
-                href="https://github.com/VaibhavKumar22"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="GitHub profile"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path
-                    fill="#181717"
-                    d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
-                  />
-                </svg>
-              </a>
+        <div class="contact-layout">
+          <div class="contact-left">
+            <article class="card contact-info-card contact-info-card--left">
+              <h3 class="contact-info-title">Contact Info</h3>
+              <div class="contact-actions" role="list">
+                <a class="contact-action contact-action--email" role="listitem" href="mailto:vaibjais123456@gmail.com" aria-label="Email vaibjais123456@gmail.com">
+                  <span class="contact-action-icon contact-icon-link" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="contact-action-text">
+                    <span class="contact-action-label">Email</span>
+                    <span class="contact-action-value">vaibjais123456@gmail.com</span>
+                  </span>
+                </a>
+
+                <a class="contact-action contact-action--phone" role="listitem" href="tel:+918873465131" aria-label="Call +91 88734 65131">
+                  <span class="contact-action-icon contact-icon-link" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.21z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="contact-action-text">
+                    <span class="contact-action-label">Phone</span>
+                    <span class="contact-action-value">+91 8873465131</span>
+                  </span>
+                </a>
+
+                <a class="contact-action contact-action--linkedin" role="listitem" href="https://www.linkedin.com/in/vaibhavkumar-/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn profile">
+                  <span class="contact-action-icon contact-icon-link" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="contact-action-text">
+                    <span class="contact-action-label">LinkedIn</span>
+                    <span class="contact-action-value">linkedin.com/in/vaibhavkumar</span>
+                  </span>
+                </a>
+
+                <a class="contact-action contact-action--github" role="listitem" href="https://github.com/Nightcoder-Vaibhav" target="_blank" rel="noopener noreferrer" aria-label="GitHub profile">
+                  <span class="contact-action-icon contact-icon-link" aria-hidden="true">
+                    <svg viewBox="0 0 24 24">
+                      <path
+                        fill="currentColor"
+                        d="M12 0C5.374 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z"
+                      />
+                    </svg>
+                  </span>
+                  <span class="contact-action-text">
+                    <span class="contact-action-label">GitHub</span>
+                    <span class="contact-action-value">github.com/Nightcoder-Vaibhav</span>
+                  </span>
+                </a>
+              </div>
+            </article>
+          </div>
+
+          <div class="contact-right">
+            <div class="contact-availability-badge">
+              <i aria-hidden="true"></i>
+              Available for Freelance & Full-Time Opportunities
             </div>
+
+            <article class="card stack contact-form-card">
+              <h3>Start a Conversation</h3>
+
+              <form class="contact-form" action="https://formsubmit.co/vaibjais123456@gmail.com" method="POST" id="contact-form">
+                <input type="hidden" name="_subject" value="Portfolio contact — Vaibhav Kumar" />
+                <input type="hidden" name="_captcha" value="false" />
+                <input type="hidden" name="_template" value="table" />
+                <input type="hidden" name="_next" id="formNextUrl" value="" />
+
+                <div class="floating-field">
+                  <input
+                    id="contact-name"
+                    name="name"
+                    type="text"
+                    required
+                    maxlength="120"
+                    autocomplete="name"
+                    placeholder="Enter your full name"
+                  />
+                  <label for="contact-name">Name</label>
+                </div>
+
+                <div class="floating-field">
+                  <input
+                    id="contact-email"
+                    name="email"
+                    type="email"
+                    required
+                    maxlength="254"
+                    autocomplete="email"
+                    inputmode="email"
+                    placeholder="example@gmail.com"
+                  />
+                  <label for="contact-email">Email</label>
+                </div>
+
+                <div class="floating-field">
+                  <input id="contact-subject" name="subject" type="text" required placeholder="Project / Job Opportunity" />
+                  <label for="contact-subject">Subject</label>
+                </div>
+
+                <div class="floating-field">
+                  <textarea id="contact-message" name="message" rows="5" required placeholder="Tell me about your requirement..."></textarea>
+                  <label for="contact-message">Message</label>
+                </div>
+
+                <button type="submit" class="btn btn-primary contact-submit">Send Message 🚀</button>
+              </form>
+              <div id="contact-success" class="contact-success" hidden>Message sent successfully! I'll get back to you soon.</div>
+            </article>
           </div>
         </div>
       </section>
@@ -1645,7 +3401,7 @@ p {
 
   var next = document.getElementById('formNextUrl');
   if (next) {
-    next.value = window.location.origin + window.location.pathname + '#contact';
+    next.value = window.location.origin + window.location.pathname + '?contactSent=1#contact';
   }
 
   /* Contact form: name ≥2 chars (trimmed), email format check */
@@ -1731,6 +3487,41 @@ p {
   window.addEventListener('hashchange', showPanelFromHash);
   showPanelFromHash();
 
+  /* Contact success message after redirect */
+  (function () {
+    var sent = null;
+    if (typeof URLSearchParams === 'function') {
+      sent = new URLSearchParams(window.location.search || '').get('contactSent');
+    } else {
+      // Basic fallback for older browsers
+      var q = (window.location.search || '').replace(/^\?/, '');
+      var parts = q.split('&');
+      for (var i = 0; i < parts.length; i++) {
+        var kv = parts[i].split('=');
+        if (kv[0] === 'contactSent') sent = decodeURIComponent(kv[1] || '');
+      }
+    }
+
+    if (sent === '1') {
+      var successEl = document.getElementById('contact-success');
+      if (successEl) {
+        successEl.hidden = false;
+        successEl.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+
+      var formEl = document.getElementById('contact-form');
+      if (formEl) {
+        formEl.hidden = true;
+      }
+
+      try {
+        window.history.replaceState(null, '', window.location.pathname + window.location.hash);
+      } catch (e) {
+        // ignore
+      }
+    }
+  })();
+
   var row = document.getElementById('skill-filter-row');
   var grid = document.getElementById('skill-card-grid');
   if (row && grid) {
@@ -1746,6 +3537,88 @@ p {
         var cat = card.getAttribute('data-category');
         var show = activeCategory === 'All Skills' || cat === activeCategory;
         card.style.display = show ? '' : 'none';
+      });
+    });
+  }
+
+  /* Scroll reveal for premium cards */
+  (function () {
+    var revealEls = Array.prototype.slice.call(document.querySelectorAll('[data-reveal]'));
+    if (!revealEls.length) return;
+
+    if (!('IntersectionObserver' in window)) {
+      revealEls.forEach(function (el) {
+        el.classList.add('in-view');
+      });
+      return;
+    }
+
+    var obs = new IntersectionObserver(
+      function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            obs.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.18 }
+    );
+
+    revealEls.forEach(function (el) {
+      obs.observe(el);
+    });
+  })();
+
+  /* Certificate flip on click/tap and keyboard */
+  var certCards = document.querySelectorAll('.cert-flip-card');
+  if (certCards && certCards.length) {
+    function setCertFlipped(card, flipped) {
+      card.classList.toggle('cert-flipped', flipped);
+      card.setAttribute('aria-expanded', flipped ? 'true' : 'false');
+    }
+
+    function toggleCert(card) {
+      var flipped = card.classList.contains('cert-flipped');
+      certCards.forEach(function (c) {
+        if (c !== card) setCertFlipped(c, false);
+      });
+      setCertFlipped(card, !flipped);
+    }
+
+    certCards.forEach(function (card) {
+      if (!card.hasAttribute('aria-expanded')) {
+        card.setAttribute('aria-expanded', 'false');
+      }
+
+      card.addEventListener('click', function (e) {
+        // Don't toggle when clicking a link (e.g., "View Certificate")
+        var a = e.target && e.target.closest && e.target.closest('a');
+        if (a) return;
+
+        e.stopPropagation();
+        toggleCert(card);
+      });
+
+      card.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          toggleCert(card);
+          return;
+        }
+        if (e.key === 'Escape') {
+          e.preventDefault();
+          setCertFlipped(card, false);
+          return;
+        }
+      });
+    });
+
+    document.addEventListener('click', function (e) {
+      var clickedInCard = e.target && e.target.closest && e.target.closest('.cert-flip-card');
+      if (clickedInCard) return;
+      certCards.forEach(function (c) {
+        setCertFlipped(c, false);
       });
     });
   }
@@ -1783,3 +3656,9 @@ p {
   </script>
 </body>
 </html>
+
+
+
+
+
+
