@@ -723,6 +723,7 @@ p {
   display: grid;
   grid-template-columns: minmax(240px, 0.9fr) minmax(300px, 1.4fr);
   gap: 16px;
+  align-items: stretch;
 }
 
 .left-stack,
@@ -744,37 +745,68 @@ p {
   color: #f4fffa;
 }
 
-.about-narrative-lead {
-  position: relative;
+.about-narrative-text {
   margin: 0;
-  max-width: 58ch;
+  max-width: 62ch;
   color: var(--text);
-  font-size: clamp(1.02rem, 1.65vw, 1.1rem);
-  line-height: 1.75;
-  padding-left: 16px;
+  font-size: clamp(0.98rem, 1.55vw, 1.05rem);
+  line-height: 1.72;
 }
 
-.about-narrative-lead::before {
+.about-narrative-text + .about-narrative-text {
+  margin-top: 12px;
+}
+
+.about-narrative-title + .about-narrative-text {
+  margin-top: 10px;
+}
+
+.how-block {
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.28s ease, box-shadow 0.28s ease, filter 0.28s ease;
+}
+
+.how-block::after {
   content: "";
   position: absolute;
-  left: 0;
-  top: 0.2em;
-  bottom: 0.2em;
-  width: 3px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--primary), var(--secondary));
-  opacity: 0.9;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(circle at top right, rgba(0, 255, 153, 0.06), transparent 60%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+  z-index: 0;
 }
 
-.about-narrative-note {
-  margin: 0;
-  max-width: 58ch;
-  padding-top: 14px;
-  margin-top: 2px;
-  border-top: 1px solid rgba(0, 204, 255, 0.14);
-  color: var(--text-description);
-  font-size: clamp(0.95rem, 1.45vw, 1.02rem);
-  line-height: 1.72;
+.how-block > * {
+  position: relative;
+  z-index: 1;
+}
+
+.how-block:hover::after {
+  opacity: 1;
+}
+
+.how-block:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.38),
+    0 0 24px rgba(0, 255, 150, 0.12),
+    0 0 20px rgba(0, 204, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  filter: saturate(1.02);
+}
+
+.how-block h3.about-narrative-title {
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  color: #72ffb1;
+  text-shadow: 0 0 18px rgba(0, 255, 153, 0.12);
+}
+
+.how-block .about-narrative-text {
+  max-width: 95%;
 }
 
 .projects-grid {
@@ -2311,7 +2343,7 @@ p {
 }
 
 /* Default cards: subtle lift (projects + achievements override below) */
-.card:hover:not(.achievement-stat) {
+.card:hover:not(.achievement-stat):not(.how-block) {
   transform: translateY(-2px);
   box-shadow:
     0 12px 36px rgba(0, 0, 0, 0.4),
@@ -2701,15 +2733,21 @@ p {
               </article>
             </aside>
             <div class="right-stack">
-              <article class="card stack about-narrative-card">
-                <h3 class="about-narrative-title">How I work</h3>
-                <p class="about-narrative-lead">
-                  I'm a passionate full-stack developer focused on building scalable and user-friendly web applications. I enjoy transforming ideas into real-world products while continuously improving my problem-solving and system design skills.
+              <div class="card stack about-narrative-card how-block">
+                <h3 class="about-narrative-title"><span aria-hidden="true">🚀</span> My Journey</h3>
+                <p class="about-narrative-text">
+                  My journey in tech started with curiosity and a strong interest in solving real-world problems through code. Over time, I built a solid foundation in full-stack development and data structures by working on practical projects.
                 </p>
-                <p class="about-narrative-note">
-                  I believe in writing clean, maintainable code and creating practical, human-centered solutions.
+                <p class="about-narrative-text">
+                  I focused on developing scalable and user-friendly applications while continuously improving my coding skills and understanding of system design. Each project helped me grow into a more efficient and problem-solving oriented developer.
                 </p>
-              </article>
+              </div>
+              <div class="card stack about-narrative-card how-block">
+                <h3 class="about-narrative-title"><span aria-hidden="true">🧠</span> My Approach</h3>
+                <p class="about-narrative-text">
+                  I believe in writing clean, maintainable code and building applications that are both efficient and user-friendly. My approach focuses on delivering real value through performance, simplicity, and scalable design. I continuously learn new technologies and challenge myself through hands-on projects and problem-solving, which helps me improve consistently and build impactful real-world solutions.
+                </p>
+              </div>
             </div>
           </section>
         </div>
